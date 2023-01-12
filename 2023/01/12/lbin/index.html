@@ -1,0 +1,450 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <title>Lbin | Hexo</title>
+        <meta name="author" content="John Doe">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="icon" href="">
+        <script src="https://cdn.staticfile.org/vue/3.2.45/vue.global.prod.min.js"></script>
+        <script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css">
+        <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.2.1/css/all.min.css">
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features="></script>
+        
+        
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/particlex.css">
+    <meta name="generator" content="Hexo 5.4.2"></head>
+    <body>
+        <div id="loading" style="height: 100vh; width: 100vw; position: fixed; display: flex; z-index: 2147483647; justify-content: space-between; background: #fff; transition: all 0.3s ease-out; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none">
+    <div style="position: fixed; height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center">
+        <div id="loadcontent" style="width: 50vmin; height: 50vmin; padding: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: solid 10px #a3ddfb; text-align: center">
+            <div>
+                <h2>LOADING...</h2>
+                <p style="word-break: keep-all">加载过慢请开启缓存（浏览器默认开启）</p>
+                <div>
+                    <img alt="loading" src="/loading.gif" style="width: 60px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div id="layout">
+            <transition name="into">
+                <div v-show="showpage" style="display: -not-none">
+                    <div id="menushow">
+                        <nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Hexo</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;about</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;tags</span>
+        </a>
+        
+    </div>
+    <div :class="'phone-menu ' + menushow" id="phone-menu">
+        <div class="curtain" @click="menushow = !menushow" v-show="menushow"></div>
+        <div class="title" @click="menushow = !menushow">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;Hexo</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="menushow">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+
+                    </div>
+                    <div id="main">
+                        <div class="article">
+    <div>
+        <h1>Lbin </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/1/12
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
+                    雪花算法
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>雪花算法</p>
+<p>​    在复杂的分布式系统中，需要有一个唯一ID来标识一条数据或消息。</p>
+<p>ID生成规则部分硬性要求</p>
+<pre><code>1、全局唯一：不能出现重复的ID号，
+2、趋势递增：在MySQL的InnoDB引擎中使用的是聚集索引，由于多数RDBMS使用Btree的数据结构来存储索引数据，所以主键上应该尽量选择使用有序的主键来保证写入性能
+3、单调递增：保证下一个ID一定大于上一个ID，例如事务版本号、IM增量消息、排序等特殊需求
+4、信息安全：需要ID无规则不规则
+5、含时间戳：这样就能够在开发中快速了解这个分布式id的生成时间
+</code></pre>
+<p>ID号生成系统的可用性要求：</p>
+<pre><code>高可用：发一个获取分布式ID的请求，服务器就要保证99.999%的情况下给我创建一个唯一分布式ID。
+低延迟：发一个获取分布式ID的请求，服务器就要快，极速。
+高QPS：假如并发一口气10万个创建分布式ID请求同时杀过来，服务器要顶的住且一下子成功创建10万个分布式ID。
+</code></pre>
+<p>一般通用的是UUID，</p>
+<p>​    UUID(Universally Unique ldentifer)的标准型式包含32个16进制数字，以连了号分为五段，形式为8-4-4-4-12的36个字符， 示例：550e8400-e29b-41d4-a716-446655440000</p>
+<p>性能非常高：本地生成，没有网络消耗</p>
+<p>如果只是考虑唯一性，那就选用它吧</p>
+<p>但是，入数据库性能差</p>
+<p><strong>为什么无序的UUID会导致入库性能变差呢？</strong></p>
+<pre><code>1、无序，无法预测他的生成顺序，不能生成递增有序的数字。首先分布式ID一般都会作为主键， 但是安装MySQL官方推荐主键要尽量越短越好，UUID每一个都很长，所以不是很推荐。
+
+2、主键，ID作为主键时在特定的环境会存在一些问题。比如做DB主键的场景下，UUID就非常不适用MySQL官方有明确的建议主键要尽量越短越好36个字符长度的UUID不符合要求。
+
+3、索引，既然分布式ID是主键，然后主键是包含索引的，然后MySQL的索引是通过B+树来实现的，每一次新的UUID数据的插入，为了查询的优化，都会对索引底层的B+树进行修改，因为UUID数据是无序的，所以每一次UUID数据的插入都会对主键地械的B+树进行很大的修改，这一点很不好。 插入完全无序，不但会导致一-些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能。
+</code></pre>
+<p>在<strong>单机</strong>里，数据库的自增ID机制的主要原理是：数据库自增ID和mysql数据库的replace into实现的         （这里replace into和insert功能类似）</p>
+<p>不同点在于：replace into首先尝试插入数据库列表中，如果发现表中已经有此行数据(根据主键或唯一索引判断)则先删除，再插入，否则直接插入新数据</p>
+<p><font color="red">REPLACE INTO的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据</font></p>
+<p><strong>集群分布式</strong></p>
+<p>基于Redis生成全局ID策略</p>
+<p>因为Redis是单线的天生保证原子性，可以使用原子操作INCR和INCRBY来实现</p>
+<p>注意：在Redis集群情况下，同样和MySQL一样需要设置不同的增长步长，同时key一定要设置有效期可以使用Redis集群来获取更高的吞吐量。</p>
+<p>假如一个集群中有5台Redis。可以初始化每台Redis的值分别是1,2,3,4,5，然后步长都是5。</p>
+<p>各个Redis生成的ID为:</p>
+<p>A：1, 6, 11, 16, 21<br>B：2, 7 , 12, 17, 22<br>C：3, 8, 13, 18, 23<br>D：4, 9, 14, 19, 24<br>E：5, 10, 15, 20, 25</p>
+<h1 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a><strong>雪花算法</strong></h1><p>Twitter的分布式自增ID算法snowflake</p>
+<p>概述</p>
+<p>Twitter的snowflake解决了这种需求，最初Twitter把存储系统从MySQL迁移到Cassandra（由Facebook开发一套开源分布式NoSQL数据库系统）。因为Cassandra没有顺序ID生成机制，所以开发了这样一套全局唯一生成服务。</p>
+<p>Twitter的分布式雪花算法SnowFlake ，经测试snowflake 每秒能够产生26万个自增可排序的ID</p>
+<ol>
+<li><p>Twitter的SnowFlake生成ID能够按照时间有序生成。</p>
+</li>
+<li><p>SnowFlake算法生成ID的结果是一个64bit大小的整数， 为一个Long型（转换成字符串后长度最多19）。</p>
+</li>
+<li><p>分布式系统内不会产生ID碰撞（由datacenter和workerld作区分）并且效率较高。</p>
+</li>
+</ol>
+<p>分布式系统中，有一些需要使用全局唯一ID的场景， 生成ID的基本要求：</p>
+<ol>
+<li>在分布式的环境下必须全局且唯一 。</li>
+<li>一般都需要单调递增，因为一般唯一ID都会存到数据库，而Innodb的特性就是将内容存储在主键索引树上的叶子节点而且是从左往右，递增的，所以考虑到数据库性能，一般生成的ID也最好是单调递增。 为了防止ID冲突可以使用36位的UUID，但是UUID有一些缺点， 首先他相对比较长， 另外UUID一般是无序的。</li>
+<li>可能还会需要无规则，因为如果使用唯一ID作为订单号这种，为了不然别人知道一天的订单量是多少，就需要这个规则。</li>
+</ol>
+<p>号段解析：</p>
+<pre><code>1bit：
+
+不用，因为二进制中最高位是符号位，1表示负数，0表示正数。生成的id一般都是用整数，所以最高位固定为0。
+
+41bit - 时间戳，用来记录时间戳，毫秒级：
+41位可以表示2^41 - 1个数字
+如果只用来表示正整数（计算机中正数包含0），可以表示的数值范围是：0至2^41 - 1
+ ，减1是因为可表示的数值范围是从0开始算的，而不是1。
+也就是说41位可以表示2^41 - 1个毫秒的值，转化成单位年则是( 2^41 - 1 ) / (1000 ∗60 ∗ 60 ∗ 24 ∗ 365 ) =69年。
+
+10bit - 工作机器ID，用来记录工作机器ID：
+可以部署在2^10 = 1024个节点，包括5位DataCenterId和5位Workerld。
+5位(bit) 可以表示的最大正整数是2^5 − 1 = 31,即可以用0、1、2、3、…31这32个数字，来表示不同的DataCenterld或Workerld。
+
+12bit - 序列号，用来记录同毫秒内产生的不同id。
+12位(bit) 可以表示的最大正整数是2 12 − 1 = 4095 2^&#123;12&#125; - 1 = 40952， 即可以用0、1、2、 3、…4094这4095个数字，来表示同一机器同一时间截(毫秒)内产生的4095个ID序号。
+SnowFlake可以保证：
+
+所有生成的ID按时间趋势递增。
+整个分布式系统内不会产生重复id（因为有DataCenterId和Workerld来做区分)
+</code></pre>
+<p>源码：</p>
+<pre><code class="java">/**
+ * Twitter_Snowflake
+ * SnowFlake的结构如下(每部分用-分开):
+ * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000
+ * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0
+ * 41位时间戳(毫秒级)，注意，41位时间戳不是存储当前时间的时间戳，而是存储时间戳的差值（当前时间戳 - 开始时间戳)
+ * 得到的值），这里的的开始时间戳，一般是我们的id生成器开始使用的时间，由我们程序来指定的（如下面程序SnowflakeIdWorker类的startTime属性）。41位的时间戳，可以使用69年，年T = (1L &lt;&lt; 41) / (1000L * 60 * 60 * 24 * 365) = 69
+ * 10位的数据机器位，可以部署在1024个节点，包括5位datacenterId和5位workerId
+ * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间戳)产生4096个ID序号
+ * 加起来刚好64位，为一个Long型。
+ */
+public class SnowflakeIdWorker &#123;
+    /** 开始时间戳 (2015-01-01) */
+    private final long twepoch = 1420041600000L;
+
+    /** 机器id所占的位数 */
+    private final long workerIdBits = 5L;
+
+    /** 数据标识id所占的位数 */
+    private final long datacenterIdBits = 5L;
+
+    /** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */
+    private final long maxWorkerId = -1L ^ (-1L &lt;&lt; workerIdBits);
+
+    /** 支持的最大数据标识id，结果是31 */
+    private final long maxDatacenterId = -1L ^ (-1L &lt;&lt; datacenterIdBits);
+
+    /** 序列在id中占的位数 */
+    private final long sequenceBits = 12L;
+
+    /** 机器ID向左移12位 */
+    private final long workerIdShift = sequenceBits;
+
+    /** 数据标识id向左移17位(12+5) */
+    private final long datacenterIdShift = sequenceBits + workerIdBits;
+
+    /** 时间戳向左移22位(5+5+12) */
+    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+
+    /** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095) */
+    private final long sequenceMask = -1L ^ (-1L &lt;&lt; sequenceBits);
+
+    /** 工作机器ID(0~31) */
+    private long workerId;
+
+    /** 数据中心ID(0~31) */
+    private long datacenterId;
+
+    /** 毫秒内序列(0~4095) */
+    private long sequence = 0L;
+
+    /** 上次生成ID的时间戳 */
+    private long lastTimestamp = -1L;
+
+    //==============================Constructors=====================================
+    /**
+     * 构造函数
+     * @param workerId 工作ID (0~31)
+     * @param datacenterId 数据中心ID (0~31)
+     */
+    public SnowflakeIdWorker(long workerId, long datacenterId) &#123;
+        if (workerId &gt; maxWorkerId || workerId &lt; 0) &#123;
+            throw new IllegalArgumentException(String.format(&quot;worker Id can&#39;t be greater than %d or less than 0&quot;, maxWorkerId));
+        &#125;
+        if (datacenterId &gt; maxDatacenterId || datacenterId &lt; 0) &#123;
+            throw new IllegalArgumentException(String.format(&quot;datacenter Id can&#39;t be greater than %d or less than 0&quot;, maxDatacenterId));
+        &#125;
+        this.workerId = workerId;
+        this.datacenterId = datacenterId;
+    &#125;
+
+    // ==============================Methods==========================================
+    /**
+     * 获得下一个ID (该方法是线程安全的)
+     * @return SnowflakeId
+     */
+    public synchronized long nextId() &#123;
+        long timestamp = timeGen();
+
+        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
+        if (timestamp &lt; lastTimestamp) &#123;
+            throw new RuntimeException(
+                    String.format(&quot;Clock moved backwards.  Refusing to generate id for %d milliseconds&quot;, lastTimestamp - timestamp));
+        &#125;
+
+        //如果是同一时间生成的，则进行毫秒内序列
+        if (lastTimestamp == timestamp) &#123;
+            sequence = (sequence + 1) &amp; sequenceMask;
+            //毫秒内序列溢出
+            if (sequence == 0) &#123;
+                //阻塞到下一个毫秒,获得新的时间戳
+                timestamp = tilNextMillis(lastTimestamp);
+            &#125;
+        &#125;
+        //时间戳改变，毫秒内序列重置
+        else &#123;
+            sequence = 0L;
+        &#125;
+
+        //上次生成ID的时间戳
+        lastTimestamp = timestamp;
+
+        //移位并通过或运算拼到一起组成64位的ID
+        return ((timestamp - twepoch) &lt;&lt; timestampLeftShift) //
+                | (datacenterId &lt;&lt; datacenterIdShift) //
+                | (workerId &lt;&lt; workerIdShift) //
+                | sequence;
+    &#125;
+
+    /**
+     * 阻塞到下一个毫秒，直到获得新的时间戳
+     * @param lastTimestamp 上次生成ID的时间戳
+     * @return 当前时间戳
+     */
+    protected long tilNextMillis(long lastTimestamp) &#123;
+        long timestamp = timeGen();
+        while (timestamp &lt;= lastTimestamp) &#123;
+            timestamp = timeGen();
+        &#125;
+        return timestamp;
+    &#125;
+
+    /**
+     * 返回以毫秒为单位的当前时间
+     * @return 当前时间(毫秒)
+     */
+    protected long timeGen() &#123;
+        return System.currentTimeMillis();
+    &#125;
+
+    /** 测试 */
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;开始：&quot;+System.currentTimeMillis());
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
+        for (int i = 0; i &lt; 50; i++) &#123;
+            long id = idWorker.nextId();
+            System.out.println(id);
+//            System.out.println(Long.toBinaryString(id));
+        &#125;
+        System.out.println(&quot;结束：&quot;+System.currentTimeMillis());
+    &#125;
+&#125;
+</code></pre>
+<p>优缺点</p>
+<p>优点：</p>
+<ul>
+<li><p>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。</p>
+</li>
+<li><p>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。</p>
+</li>
+<li><p>可以根据自身业务特性分配bit位，非常灵活。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成。</p>
+</li>
+<li><p>在单机上是递增的，但是由于设计到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况。（此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求都只要求趋势递增）</p>
+</li>
+</ul>
+<p>其他补充</p>
+<ul>
+<li><p>百度开源的分布式唯一ID生成器UidGenerator</p>
+</li>
+<li><p>美团点评分布式ID生成系统Leaf</p>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+                        <footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2022 - 2023 Hexo
+            <span class="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            @John Doe
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> & <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a></div>
+        
+    </div>
+</footer>
+
+                    </div>
+                </div>
+            </transition>
+            <div id="showimg">
+                <img id="showimg-content" alt="showimg">
+            </div>
+        </div>
+        <script src="/js/functions.js"></script>
+<script src="/js/particlex.js"></script>
+
+    
+    
+    
+    
+
+
+    </body>
+</html>
