@@ -152,7 +152,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/Redis/" style="color: #ff7d73">
+                <a href="/tags/Redis/" style="color: #ffa2c4">
                     Redis
                 </a>
             </span>
@@ -177,7 +177,7 @@
 </code></pre>
 <p>c语言中的hashmap</p>
 <h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
-<p><img src="redis.assets/image-20220929092502781-1673578824162.png"></p>
+<p><img src="/accest/image-20220929092502781-1673579306137.png"></p>
 <p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
 <p>redisObject</p>
 <pre><code class="c">typedef struct redisObject&#123;
@@ -190,9 +190,9 @@
 &#125; robj;
 </code></pre>
 <h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
-<p><img src="redis.assets/image-20220929092936578.png" alt="image-20220929092936578"></p>
+<p><img src="/redis.assets/image-20220929092936578.png" alt="image-20220929092936578"></p>
 <p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
-<p><img src="redis.assets/image-20220929093231676.png" alt="image-20220929093231676"></p>
+<p><img src="/redis.assets/image-20220929093231676.png" alt="image-20220929093231676"></p>
 <p>随后直接由指针存储整型值</p>
 <h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
 <p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
