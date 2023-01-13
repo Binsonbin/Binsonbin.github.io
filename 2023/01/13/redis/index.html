@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-        <title>Debug</title>
+        <title>Redis-01 | Debug</title>
         <meta name="author" content="Lbin">
         <meta name="description" content="">
         <meta name="keywords" content="">
@@ -132,222 +132,77 @@
 
                     </div>
                     <div id="main">
-                        <div id="home-background" style="background-image: url()"></div>
-<div id="home-head">
-    
-    <div id="home-info" class="home-info" @click="homeclick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Debug</h1>
-                <h3></h3>
-                <h5></h5>
-            </div>
-        </span>
+                        <div class="article">
+    <div>
+        <h1>Redis-01 </h1>
     </div>
-    
-</div>
-<div id="home-posts-wrap" class="">
-    <div id="home-posts">
-        <div id="posts">
-            
-
-<div class="post">
-    <a href="/2023/01/13/redis/">
-        <h2 class="post-title">Redis-01</h2>
-    </a>
-    <div class="category-and-date">
-        
+    <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
             2023/1/13
         </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
         
         
-        <span class="tag">
-            
-            <a href="/tags/Redis/" style="color: #00bcd4">
-                Redis
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/01/13/redis/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2023/01/13/spring/">
-        <h2 class="post-title">Spring框架一</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
+        <span class="tags">
             <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+                <i class="fa-solid fa-tags fa-fw"></i>
             </span>
-            2023/1/13
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
             
-            
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Spring%E6%A1%86%E6%9E%B6/" style="color: #00bcd4">
-                Spring框架
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/01/13/spring/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2023/01/12/lbin/">
-        <h2 class="post-title">Lbin</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+            <span class="tag">
+                
+                <a href="/tags/Redis/" style="color: #ff7d73">
+                    Redis
+                </a>
             </span>
-            2023/1/12
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
             
-            
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
         </span>
         
-        
-        <span class="tag">
-            
-            <a href="/tags/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/" style="color: #ffa2c4">
-                雪花算法
-            </a>
-        </span>
-        
-    </div>
-    <a href="/2023/01/12/lbin/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2023/01/11/hello-world/">
-        <h2 class="post-title">Hello World</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/1/11
-        </span>
-    </div>
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-    </div>
-    <a href="/2023/01/11/hello-world/" class="go-post">阅读全文</a>
-</div>
-
-
-            <div class="page-current">
-    <div class="prev">
-        
-    </div>
-    <div class="page-index">
-        
-        <span class="current">
-            1
-        </span>
-        
-    </div>
-    <div class="next">
-        
-    </div>
-</div>
-
-        </div>
     </div>
     
-    <div id="home-card">
-        <div id="card-div">
-    <div class="card-style" style="width: 300px">
-        <div class="avatar">
-            <img src="img/hmbaby.jpg" alt="avatar">
-        </div>
-        <div class="name">
-            Lbin
-        </div>
-        <div class="descriptions">
-            
-            <div class="description">
-                <p>Description</p>
+    <div class="content" v-pre>
+        <h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
+<pre><code class="c">typedef struct redisDb&#123;
+    dict *dict;        /*存放所有键值对*/
+    dict *expires;    /*过期时间处理*/
+    dict *blocking_keys;    /*阻塞的API*/
+    dict *ready_keys;
+    dict *watched_keys;
+    int id;
+    long long avg_ttl;
+    unsigned long expires_cursor;
+    list *defrag_later;
+&#125; redisDb;
+</code></pre>
+<p>c语言中的hashmap</p>
+<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
+<p><img src="redis.assets/image-20220929092502781-1673578824162.png"></p>
+<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
+<p>redisObject</p>
+<pre><code class="c">typedef struct redisObject&#123;
+    unsigned type:4;    //类型
+    unsigned encoding:4;    //编码
+    unsigned lru:LRU_BITS;    //持久化
+    
+    int refcount;    //引用计数法，判断是否存货
+    void *ptr;    //指向内存中的内存区域
+&#125; robj;
+</code></pre>
+<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
+<p><img src="redis.assets/image-20220929092936578.png" alt="image-20220929092936578"></p>
+<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
+<p><img src="redis.assets/image-20220929093231676.png" alt="image-20220929093231676"></p>
+<p>随后直接由指针存储整型值</p>
+<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
+<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
+<p>底层编码是使用 quicklist 结构</p>
 
-            </div>
-            
-            <div class="description">
-                <p>…</p>
-
-            </div>
-            
-        </div>
-        <div class="icon-links">
-            
-        </div>
-        <div class="friend-links">
-            
-        </div>
     </div>
-</div>
-
-    </div>
+    
+    
+    
+    
     
 </div>
 
@@ -375,6 +230,11 @@
         </div>
         <script src="/js/functions.js"></script>
 <script src="/js/particlex.js"></script>
+
+    
+    
+    
+    
 
 
     </body>
