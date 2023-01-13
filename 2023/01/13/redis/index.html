@@ -177,7 +177,7 @@
 </code></pre>
 <p>c语言中的hashmap</p>
 <h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
-<p><img src="/accest/image-20220929092502781-1673579306137.png"></p>
+<p><img src="/assets/image-20220929092502781.png" alt="存储结构"></p>
 <p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
 <p>redisObject</p>
 <pre><code class="c">typedef struct redisObject&#123;
