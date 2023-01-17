@@ -114,35 +114,6 @@
       </tags>
   </entry>
   <entry>
-    <title>redis-01</title>
-    <url>/posts/36792/</url>
-    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
-
-<p>c语言中的hashmap</p>
-<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
-
-
-<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
-<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
-<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
-<p>redisObject</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
-
-<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
-<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
-<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
-<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
-<p>随后直接由指针存储整型值</p>
-<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
-<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
-<p>底层编码是使用 quicklist 结构</p>
-]]></content>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>spring框架一</title>
     <url>/posts/60282/</url>
     <content><![CDATA[<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>spring框架都是依赖于反射</p>
@@ -220,6 +191,35 @@
 ]]></content>
       <tags>
         <tag>Spring框架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis-01</title>
+    <url>/posts/36792/</url>
+    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>c语言中的hashmap</p>
+<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
+
+
+<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
+<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
+<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
+<p>redisObject</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+
+<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
+<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
+<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
+<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
+<p>随后直接由指针存储整型值</p>
+<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
+<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
+<p>底层编码是使用 quicklist 结构</p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
       </tags>
   </entry>
 </search>
