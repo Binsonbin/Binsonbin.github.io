@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java并发与线程</title>
+    <url>/posts/63871/</url>
+    <content><![CDATA[<h1 id="并发与线程"><a href="#并发与线程" class="headerlink" title="并发与线程"></a>并发与线程</h1><h2 id="1、并行和并发的区别？"><a href="#1、并行和并发的区别？" class="headerlink" title="1、并行和并发的区别？"></a>1、并行和并发的区别？</h2>]]></content>
+      <tags>
+        <tag>高并发与多线程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/posts/16107/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -220,6 +228,56 @@
 ]]></content>
       <tags>
         <tag>Spring框架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>初识区块链</title>
+    <url>/posts/40134/</url>
+    <content><![CDATA[<h1 id="初识区块链"><a href="#初识区块链" class="headerlink" title="初识区块链"></a>初识区块链</h1><p>借鉴：<a href="https://zhuanlan.zhihu.com/p/22228902">（一）简单易懂地介绍什么是区块链</a></p>
+<h2 id="1、区块链的诞生"><a href="#1、区块链的诞生" class="headerlink" title="1、区块链的诞生"></a>1、区块链的诞生</h2><p>互联网上的贸易，几乎都需要借助可资信赖的第三方信用机构来处理电子支付信息。这类系统仍然内生性地受制于“基于信用的模式”。区块链技术是构建比特币区块链网络与交易信息加密传输的基础技术。它基于密码学原理而不基于信用，使得任何达成一致的双方直接支付，从而不需要第三方中介的参与。</p>
+<p>定义：</p>
+<blockquote>
+<p>区块链是一个分布式账本，一种通过去中心化、去信任的方式集体维护一个可靠数据库的技术方案。</p>
+</blockquote>
+<p>从数据的角度来看：区块链是一种几乎不可能被更改的分布式数据库。这里的“分布式”不仅体现为数据的分布式存储，也体现为数据的分布式记录（即由系统参与者共同维护）。</p>
+<span id="more"></span>
+
+<p>从技术的角度来看：区块链并不是一种单一的技术，而是多种技术整合的结果。这些技术以新的结构组合在一起，形成了一种新的数据记录、存储和表达的方式。</p>
+<h2 id="2、区块链的特性"><a href="#2、区块链的特性" class="headerlink" title="2、区块链的特性"></a>2、区块链的特性</h2><ol>
+<li><p>开放，共识</p>
+<p>任何人都可以参与到区块链网络，每一台设备都能作为一个节点，每个节点都允许获得一份完整的数据库拷贝。节点间基于一套==共识机制==，通过竞争计算共同维护整个区块链。任一节点失效，其余节点仍能正常工作。</p>
+</li>
+<li><p>去中心，信任</p>
+<p>区块链由众多节点共同组成一个端到端的网络，不存在中心化的设备和管理机构。节点之间数据交换通过==数字签名==技术进行验证，无需互相信任，只要按照系统既定的规则进行，节点之间不能也无法欺骗其它节点。</p>
+</li>
+<li><p>交易透明，双方匿名</p>
+<p>区块链的运行规则是公开透明的，所有的数据信息也是公开的，因此每一笔交易都对所有节点可见。由于节点与节点之间是去信任的，因此节点之间无需公开身份，每个参与的节点都是匿名的。</p>
+</li>
+<li><p>不可篡改，可追溯</p>
+<p>单个甚至多个节点对数据库的修改无法影响其他节点的数据库，除非能控制整个网络中超过51%的节点同时修改，这几乎不可能发生。区块链中的每一笔交易都通过密码学方法与相邻两个区块串联，因此可以追溯到任何一笔交易的前世今生。</p>
+</li>
+</ol>
+<h2 id="3、智能合约和共识机制"><a href="#3、智能合约和共识机制" class="headerlink" title="3、智能合约和共识机制"></a>3、智能合约和共识机制</h2><p>引用 <a href="https://developer.aliyun.com/article/822304">区块链之旅(三)智能合约与共识机制</a></p>
+<p><strong>智能合约</strong></p>
+<blockquote>
+<p>智能合约是一套以数字形式定义的约定，包括合约参与方可以在上面执行这些约定的协议。智能合约的基本思想是，各种各样的合约条款可以嵌入到我们使用的硬件和软件中，从而使得攻击者需要很大的代价去攻击。</p>
+</blockquote>
+<p><strong>共识机制</strong></p>
+<blockquote>
+<p>由于点对点网络下存在较高的网络时延，各个节点所观察到的事务先后顺序不可能完全一致。因此区块链系统需要设置一种机制对在差不多时间内发生的事务的先后顺序达成一致。这种对一个时间窗口内的事务的先后顺序达成共识的算法被称为共识机制。</p>
+</blockquote>
+<p>后面会单独说明智能合约和共识机制相关知识。</p>
+<h2 id="4、区块链分类以及应用"><a href="#4、区块链分类以及应用" class="headerlink" title="4、区块链分类以及应用"></a>4、区块链分类以及应用</h2><ul>
+<li>开放程度<ol>
+<li>公有链：所有人可以参与的区块链，公平公开的，任何人都能够访问，发送，接受，认证交易，被认为是 “完全去中心化” 的区块链。代表链有：<em>BTC，ETH，EOS，蚂蚁链</em></li>
+<li>私有链：由于害怕公有链被人为注入恶意内容或者失误后不可篡改挽回创建，被中心化机构控制，不具备去中心化属性，只能由创建者任意修改和操作，读取权限对外开放或者进行限制。代表链有：<em>Linux基金会以及Gem Health网络的超级账本项目（Hyperledger project）</em>，<em>R3 CEV</em>等。</li>
+<li>联盟链：介于公有链和私有链，联盟区块链是指其共识过程受到预选节点控制的区块链；例如，不妨想象一个有15个金融机构组成的共同体，每个机构都运行着一个节点，而且为了使每个区块生效需要获得其中10个机构的确认（2/3确认）。区块链或许允许每个人都可读取，或者只受限于参与者，或走混合型路线。代表链：<em>R3</em>，<em>Hyperledger</em> ，长安链</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>区块链</tag>
       </tags>
   </entry>
 </search>
