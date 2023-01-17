@@ -17,13 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Debug">
+  <meta name="description" content="灵魂蜉蝣随风吹">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Debug-Blog">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Debug">
+<meta property="og:site_name" content="Debug-Blog">
+<meta property="og:description" content="灵魂蜉蝣随风吹">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Lbin">
 <meta name="twitter:card" content="summary">
@@ -40,8 +42,18 @@
     lang   : 'zh-CN'
   };
 </script>
+<script> 
+ (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
 
-  <title>Debug</title>
+  <title>Debug-Blog</title>
   
 
 
@@ -76,7 +88,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
-    <div class="headband"></div>
+    <div class="headband"><a target="_blank" rel="noopener" href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
@@ -92,13 +104,15 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Debug</h1>
+      <h1 class="site-title">Debug-Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">好比玻璃突然破碎</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -113,25 +127,63 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-about">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">4</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
     <main class="main">
@@ -145,21 +197,21 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/15/http01/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36792/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/head.jpg">
       <meta itemprop="name" content="Lbin">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="灵魂蜉蝣随风吹">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Debug">
+      <meta itemprop="name" content="Debug-Blog">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/15/http01/" class="post-title-link" itemprop="url">http01</a>
+            <a href="/posts/36792/" class="post-title-link" itemprop="url">redis-01</a>
         </h2>
 
         <div class="post-meta">
@@ -168,77 +220,35 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-01-15 10:48:22 / 修改时间：11:03:45" itemprop="dateCreated datePublished" datetime="2023-01-15T10:48:22+08:00">2023-01-15</time>
+              <time title="创建时间：2023-01-13 10:57:09" itemprop="dateCreated datePublished" datetime="2023-01-13T10:57:09+08:00">2023-01-13</time>
             </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p><img src="/http01/http1.png" alt="http01/HTTP1.0和1.1.png"></p>
-<p>+++ <strong>点击折叠</strong><br>这是被隐藏的内容</p>
-<p>+++</p>
-<p>::: tips<br><strong>提示</strong><br>这是一个提示<br>:::</p>
-<p>::: warning<br><strong>注意</strong><br>这是一个警告<br>:::</p>
-<p>::: danger<br><strong>警告</strong><br>这是一个危险信号<br>:::</p>
-<p>::: success<br><strong>成功</strong><br>这是一个成功信号<br>:::</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/13/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Lbin">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Debug">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/13/redis/" class="post-title-link" itemprop="url">redis-01</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-17 11:23:01" itemprop="dateModified" datetime="2023-01-17T11:23:01+08:00">2023-01-17</time>
               </span>
-              <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-01-13 10:57:09 / 修改时间：11:42:28" itemprop="dateCreated datePublished" datetime="2023-01-13T10:57:09+08:00">2023-01-13</time>
+          <!-- 文章末尾分割线 -->
+<div>
+    <hr/>
+</div><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>901</span>
             </span>
-
-          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -250,41 +260,18 @@
 
       
           <h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
-<pre><code class="c">typedef struct redisDb&#123;
-    dict *dict;        /*存放所有键值对*/
-    dict *expires;    /*过期时间处理*/
-    dict *blocking_keys;    /*阻塞的API*/
-    dict *ready_keys;
-    dict *watched_keys;
-    int id;
-    long long avg_ttl;
-    unsigned long expires_cursor;
-    list *defrag_later;
-&#125; redisDb;
-</code></pre>
-<p>c语言中的hashmap</p>
-<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
-<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
-<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
-<p>redisObject</p>
-<pre><code class="c">typedef struct redisObject&#123;
-    unsigned type:4;    //类型
-    unsigned encoding:4;    //编码
-    unsigned lru:LRU_BITS;    //持久化
-    
-    int refcount;    //引用计数法，判断是否存货
-    void *ptr;    //指向内存中的内存区域
-&#125; robj;
-</code></pre>
-<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
-<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
-<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
-<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
-<p>随后直接由指针存储整型值</p>
-<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
-<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
-<p>底层编码是使用 quicklist 结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
 
+<p>c语言中的hashmap</p>
+<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/36792/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -303,21 +290,21 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/13/spring/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/60282/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/head.jpg">
       <meta itemprop="name" content="Lbin">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="灵魂蜉蝣随风吹">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Debug">
+      <meta itemprop="name" content="Debug-Blog">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/13/spring/" class="post-title-link" itemprop="url">spring框架一</a>
+            <a href="/posts/60282/" class="post-title-link" itemprop="url">spring框架一</a>
         </h2>
 
         <div class="post-meta">
@@ -326,12 +313,35 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-01-13 10:48:10 / 修改时间：10:49:57" itemprop="dateCreated datePublished" datetime="2023-01-13T10:48:10+08:00">2023-01-13</time>
+              <time title="创建时间：2023-01-13 10:48:10" itemprop="dateCreated datePublished" datetime="2023-01-13T10:48:10+08:00">2023-01-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-17 11:23:42" itemprop="dateModified" datetime="2023-01-17T11:23:42+08:00">2023-01-17</time>
+              </span>
 
-          
+          <!-- 文章末尾分割线 -->
+<div>
+    <hr/>
+</div><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -349,70 +359,14 @@
 <p>spring为开发者提供一个轻量级开发平台，后续诞生的许多实用框架都是以此为生态基础创建的，</p>
 <p>为了降低Java开发的复杂性，</p>
 <p>主要有==IOC==和==AOP==两个核心技术，</p>
-<h2 id="IOC："><a href="#IOC：" class="headerlink" title="IOC："></a>IOC：</h2><p>ioc是一种设计思想，别的编程语言也有，spring管理bean对象的一个容器，我们通过使用spring，可以将对象的创建和管理完全交给spring，其中spring就是通过ioc使用配置文件来管理和创建对象。</p>
-<blockquote>
-<p>创建对象有四种方式：</p>
-<p>1、使用new关键字调用对象的构造器</p>
-<p>2、使用反射的newInstance()方法</p>
-<p>3、使用Object的clone()方法</p>
-<p>4、使用对象流ObjectInputStream的readObject()方法读取序列化对象</p>
-</blockquote>
-<p>ioc又叫控制反转，可以对spring中的对象进行创建和维护，其在spring中的实现就是==DI==(依赖注入)</p>
-<p>实现原理就是工程模板+反射机制，其中两大核心接口==<strong>BeanFactory</strong>和<strong>ApplicationContext</strong>==</p>
-<p>作用：创建对象，管理对象声明周期，依赖注入，依赖检查，自动装配，回调某些方法</p>
-<blockquote>
-<p>通过BeanDefinitionReader解析各种文件(xml，properties，yaml，json)，拿到配置信息</p>
-<p>下一步通过反射进行实例化，（<del>不用new使用反射是因为，通过反射可以获得对象里面所有属性和成员变量，更加灵活</del>）</p>
-<p>PostProcessor(后置处理器)</p>
-</blockquote>
-<p><img src="/spring.assets/image-20221002155350845.png" alt="image-20221002155350845"></p>
-<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean:"></a>Bean:</h2><h3 id="bean是什么："><a href="#bean是什么：" class="headerlink" title="bean是什么："></a>bean是什么：</h3><p>Spring 容器使用依赖注入（DI）来管理==组成一个应用程序的组件==。这些对象被称为 Spring Beans，而这些bean交由IOC容器进行管理和创建</p>
-<h3 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h3><ul>
-<li><p>bean定义：</p>
-<ol>
-<li>  通过xml文件定义 </bean> 标签</li>
-<li>  使用注解@bean定义某个类</li>
-<li>  @component注解定义bean，加在类上，通过@componentScan注解来扫描</li>
-<li>  通过beanDefintion编程式定义注：有编程式和声明式，beanDefintion属于编程式，上面的注解和xml都属于声明式声明式底层也是依赖beanDefintion新建一个类继承FactoryBean接口</li>
-</ol>
-</li>
-<li><p>通过以上定义并注册到BeanFactory中</p>
-</li>
-<li><p>进行bean的实例化</p>
-</li>
-<li><p>属性注入(DI)：会产生循环依赖问题，使用三级缓存解决单例的setter注入。</p>
-<ul>
-<li><p>可以只使用二级缓存吗？ 不可以，主要是为了生成代理对象。</p>
-<p>因为三级缓存中放的是生成具体对象的匿名内部类，他可以生成代理对象，也可以是普通的实例对象。</p>
-<p>使用三级缓存主要是为了保证不管什么时候使用的都是一个对象。</p>
-<p>假设只有二级缓存的情况，往二级缓存中放的显示一个普通的Bean对象，<code>BeanPostProcessor</code>去生成代理对象之后，覆盖掉二级缓存中的普通Bean对象，那么多线程环境下可能取到的对象就不一致了。</p>
-</li>
-</ul>
-</li>
-<li><p>初始化</p>
-</li>
-<li><p>销毁</p>
-</li>
-</ul>
-<p>将bean注册</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><img src="/spring.assets/image-20221002160842674.png" alt="image-20221002160842674"></p>
-<p><img src="/spring.assets/image-20221002160009900.png" alt="image-20221002160009900"></p>
-<h2 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h2><p>Spring MVC是一个基于Java的实现了MVC设计模式的请求驱动类型的轻量级Web框架，通过把模型-视图-控制器分离，将web层进行职责解耦，把复杂的web应用分成逻辑清晰的几部分，简化开发，减少出错，方便组内开发人员之间的配合。</p>
-<h3 id="重要组件"><a href="#重要组件" class="headerlink" title="重要组件"></a>重要组件</h3><p>（1）前端控制器 DispatcherServlet（不需要程序员开发）</p>
-<p>作用：接收请求、响应结果，相当于转发器，有了DispatcherServlet 就减少了其它组件之间的耦合度。</p>
-<p>（2）处理器映射器HandlerMapping（不需要程序员开发）</p>
-<p>作用：根据请求的URL来查找Handler</p>
-<p>（3）处理器适配器HandlerAdapter</p>
-<p>注意：在编写Handler的时候要按照HandlerAdapter要求的规则去编写，这样适配器HandlerAdapter才可以正确的去执行Handler。</p>
-<p>（4）处理器Handler（需要程序员开发）</p>
-<p>（5）视图解析器 ViewResolver（不需要程序员开发）</p>
-<p>作用：进行视图的解析，根据视图逻辑名解析成真正的视图（view）</p>
-<p>（6）视图View（需要程序员开发jsp）</p>
-<p>View是一个接口， 它的实现类支持不同的视图类型（jsp，freemarker，pdf等等）</p>
-<h3 id="常用注解："><a href="#常用注解：" class="headerlink" title="常用注解："></a>常用注解：</h3><p>@RequestMapping：用于处理请求 url 映射的注解，可用于类或方法上。用于类上，则表示类中的所有响应请求的方法都是以该地址作为父路径。</p>
-<p>@RequestBody：注解实现接收http请求的json数据，将json转换为java对象。</p>
-<p>@ResponseBody：注解实现将conreoller方法返回对象转化为json对象响应给客户。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/60282/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -431,21 +385,21 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/12/lbin/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/12819/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/head.jpg">
       <meta itemprop="name" content="Lbin">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="灵魂蜉蝣随风吹">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Debug">
+      <meta itemprop="name" content="Debug-Blog">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/12/lbin/" class="post-title-link" itemprop="url">lbin</a>
+            <a href="/posts/12819/" class="post-title-link" itemprop="url">lbin</a>
         </h2>
 
         <div class="post-meta">
@@ -454,12 +408,44 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-01-12 21:23:34 / 修改时间：21:26:44" itemprop="dateCreated datePublished" datetime="2023-01-12T21:23:34+08:00">2023-01-12</time>
+              <time title="创建时间：2023-01-12 21:23:34" itemprop="dateCreated datePublished" datetime="2023-01-12T21:23:34+08:00">2023-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-17 11:23:57" itemprop="dateModified" datetime="2023-01-17T11:23:57+08:00">2023-01-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Diary/" itemprop="url" rel="index"><span itemprop="name">Diary</span></a>
+                </span>
             </span>
 
-          
+          <!-- 文章末尾分割线 -->
+<div>
+    <hr/>
+</div><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -473,248 +459,21 @@
           <p>雪花算法</p>
 <p>​    在复杂的分布式系统中，需要有一个唯一ID来标识一条数据或消息。</p>
 <p>ID生成规则部分硬性要求</p>
-<pre><code>1、全局唯一：不能出现重复的ID号，
-2、趋势递增：在MySQL的InnoDB引擎中使用的是聚集索引，由于多数RDBMS使用Btree的数据结构来存储索引数据，所以主键上应该尽量选择使用有序的主键来保证写入性能
-3、单调递增：保证下一个ID一定大于上一个ID，例如事务版本号、IM增量消息、排序等特殊需求
-4、信息安全：需要ID无规则不规则
-5、含时间戳：这样就能够在开发中快速了解这个分布式id的生成时间
-</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、全局唯一：不能出现重复的ID号，</span><br><span class="line">2、趋势递增：在MySQL的InnoDB引擎中使用的是聚集索引，由于多数RDBMS使用Btree的数据结构来存储索引数据，所以主键上应该尽量选择使用有序的主键来保证写入性能</span><br><span class="line">3、单调递增：保证下一个ID一定大于上一个ID，例如事务版本号、IM增量消息、排序等特殊需求</span><br><span class="line">4、信息安全：需要ID无规则不规则</span><br><span class="line">5、含时间戳：这样就能够在开发中快速了解这个分布式id的生成时间</span><br></pre></td></tr></table></figure>
+
 <p>ID号生成系统的可用性要求：</p>
-<pre><code>高可用：发一个获取分布式ID的请求，服务器就要保证99.999%的情况下给我创建一个唯一分布式ID。
-低延迟：发一个获取分布式ID的请求，服务器就要快，极速。
-高QPS：假如并发一口气10万个创建分布式ID请求同时杀过来，服务器要顶的住且一下子成功创建10万个分布式ID。
-</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">高可用：发一个获取分布式ID的请求，服务器就要保证99.999%的情况下给我创建一个唯一分布式ID。</span><br><span class="line">低延迟：发一个获取分布式ID的请求，服务器就要快，极速。</span><br><span class="line">高QPS：假如并发一口气10万个创建分布式ID请求同时杀过来，服务器要顶的住且一下子成功创建10万个分布式ID。</span><br></pre></td></tr></table></figure>
+
 <p>一般通用的是UUID，</p>
 <p>​    UUID(Universally Unique ldentifer)的标准型式包含32个16进制数字，以连了号分为五段，形式为8-4-4-4-12的36个字符， 示例：550e8400-e29b-41d4-a716-446655440000</p>
-<p>性能非常高：本地生成，没有网络消耗</p>
-<p>如果只是考虑唯一性，那就选用它吧</p>
-<p>但是，入数据库性能差</p>
-<p><strong>为什么无序的UUID会导致入库性能变差呢？</strong></p>
-<pre><code>1、无序，无法预测他的生成顺序，不能生成递增有序的数字。首先分布式ID一般都会作为主键， 但是安装MySQL官方推荐主键要尽量越短越好，UUID每一个都很长，所以不是很推荐。
-
-2、主键，ID作为主键时在特定的环境会存在一些问题。比如做DB主键的场景下，UUID就非常不适用MySQL官方有明确的建议主键要尽量越短越好36个字符长度的UUID不符合要求。
-
-3、索引，既然分布式ID是主键，然后主键是包含索引的，然后MySQL的索引是通过B+树来实现的，每一次新的UUID数据的插入，为了查询的优化，都会对索引底层的B+树进行修改，因为UUID数据是无序的，所以每一次UUID数据的插入都会对主键地械的B+树进行很大的修改，这一点很不好。 插入完全无序，不但会导致一-些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能。
-</code></pre>
-<p>在<strong>单机</strong>里，数据库的自增ID机制的主要原理是：数据库自增ID和mysql数据库的replace into实现的         （这里replace into和insert功能类似）</p>
-<p>不同点在于：replace into首先尝试插入数据库列表中，如果发现表中已经有此行数据(根据主键或唯一索引判断)则先删除，再插入，否则直接插入新数据</p>
-<p><font color="red">REPLACE INTO的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据</font></p>
-<p><strong>集群分布式</strong></p>
-<p>基于Redis生成全局ID策略</p>
-<p>因为Redis是单线的天生保证原子性，可以使用原子操作INCR和INCRBY来实现</p>
-<p>注意：在Redis集群情况下，同样和MySQL一样需要设置不同的增长步长，同时key一定要设置有效期可以使用Redis集群来获取更高的吞吐量。</p>
-<p>假如一个集群中有5台Redis。可以初始化每台Redis的值分别是1,2,3,4,5，然后步长都是5。</p>
-<p>各个Redis生成的ID为:</p>
-<p>A：1, 6, 11, 16, 21<br>B：2, 7 , 12, 17, 22<br>C：3, 8, 13, 18, 23<br>D：4, 9, 14, 19, 24<br>E：5, 10, 15, 20, 25</p>
-<h1 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a><strong>雪花算法</strong></h1><p>Twitter的分布式自增ID算法snowflake</p>
-<p>概述</p>
-<p>Twitter的snowflake解决了这种需求，最初Twitter把存储系统从MySQL迁移到Cassandra（由Facebook开发一套开源分布式NoSQL数据库系统）。因为Cassandra没有顺序ID生成机制，所以开发了这样一套全局唯一生成服务。</p>
-<p>Twitter的分布式雪花算法SnowFlake ，经测试snowflake 每秒能够产生26万个自增可排序的ID</p>
-<ol>
-<li><p>Twitter的SnowFlake生成ID能够按照时间有序生成。</p>
-</li>
-<li><p>SnowFlake算法生成ID的结果是一个64bit大小的整数， 为一个Long型（转换成字符串后长度最多19）。</p>
-</li>
-<li><p>分布式系统内不会产生ID碰撞（由datacenter和workerld作区分）并且效率较高。</p>
-</li>
-</ol>
-<p>分布式系统中，有一些需要使用全局唯一ID的场景， 生成ID的基本要求：</p>
-<ol>
-<li>在分布式的环境下必须全局且唯一 。</li>
-<li>一般都需要单调递增，因为一般唯一ID都会存到数据库，而Innodb的特性就是将内容存储在主键索引树上的叶子节点而且是从左往右，递增的，所以考虑到数据库性能，一般生成的ID也最好是单调递增。 为了防止ID冲突可以使用36位的UUID，但是UUID有一些缺点， 首先他相对比较长， 另外UUID一般是无序的。</li>
-<li>可能还会需要无规则，因为如果使用唯一ID作为订单号这种，为了不然别人知道一天的订单量是多少，就需要这个规则。</li>
-</ol>
-<p>号段解析：</p>
-<pre><code>1bit：
-
-不用，因为二进制中最高位是符号位，1表示负数，0表示正数。生成的id一般都是用整数，所以最高位固定为0。
-
-41bit - 时间戳，用来记录时间戳，毫秒级：
-41位可以表示2^41 - 1个数字
-如果只用来表示正整数（计算机中正数包含0），可以表示的数值范围是：0至2^41 - 1
- ，减1是因为可表示的数值范围是从0开始算的，而不是1。
-也就是说41位可以表示2^41 - 1个毫秒的值，转化成单位年则是( 2^41 - 1 ) / (1000 ∗60 ∗ 60 ∗ 24 ∗ 365 ) =69年。
-
-10bit - 工作机器ID，用来记录工作机器ID：
-可以部署在2^10 = 1024个节点，包括5位DataCenterId和5位Workerld。
-5位(bit) 可以表示的最大正整数是2^5 − 1 = 31,即可以用0、1、2、3、…31这32个数字，来表示不同的DataCenterld或Workerld。
-
-12bit - 序列号，用来记录同毫秒内产生的不同id。
-12位(bit) 可以表示的最大正整数是2 12 − 1 = 4095 2^&#123;12&#125; - 1 = 40952， 即可以用0、1、2、 3、…4094这4095个数字，来表示同一机器同一时间截(毫秒)内产生的4095个ID序号。
-SnowFlake可以保证：
-
-所有生成的ID按时间趋势递增。
-整个分布式系统内不会产生重复id（因为有DataCenterId和Workerld来做区分)
-</code></pre>
-<p>源码：</p>
-<pre><code class="java">/**
- * Twitter_Snowflake
- * SnowFlake的结构如下(每部分用-分开):
- * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000
- * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0
- * 41位时间戳(毫秒级)，注意，41位时间戳不是存储当前时间的时间戳，而是存储时间戳的差值（当前时间戳 - 开始时间戳)
- * 得到的值），这里的的开始时间戳，一般是我们的id生成器开始使用的时间，由我们程序来指定的（如下面程序SnowflakeIdWorker类的startTime属性）。41位的时间戳，可以使用69年，年T = (1L &lt;&lt; 41) / (1000L * 60 * 60 * 24 * 365) = 69
- * 10位的数据机器位，可以部署在1024个节点，包括5位datacenterId和5位workerId
- * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间戳)产生4096个ID序号
- * 加起来刚好64位，为一个Long型。
- */
-public class SnowflakeIdWorker &#123;
-    /** 开始时间戳 (2015-01-01) */
-    private final long twepoch = 1420041600000L;
-
-    /** 机器id所占的位数 */
-    private final long workerIdBits = 5L;
-
-    /** 数据标识id所占的位数 */
-    private final long datacenterIdBits = 5L;
-
-    /** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */
-    private final long maxWorkerId = -1L ^ (-1L &lt;&lt; workerIdBits);
-
-    /** 支持的最大数据标识id，结果是31 */
-    private final long maxDatacenterId = -1L ^ (-1L &lt;&lt; datacenterIdBits);
-
-    /** 序列在id中占的位数 */
-    private final long sequenceBits = 12L;
-
-    /** 机器ID向左移12位 */
-    private final long workerIdShift = sequenceBits;
-
-    /** 数据标识id向左移17位(12+5) */
-    private final long datacenterIdShift = sequenceBits + workerIdBits;
-
-    /** 时间戳向左移22位(5+5+12) */
-    private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
-
-    /** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095) */
-    private final long sequenceMask = -1L ^ (-1L &lt;&lt; sequenceBits);
-
-    /** 工作机器ID(0~31) */
-    private long workerId;
-
-    /** 数据中心ID(0~31) */
-    private long datacenterId;
-
-    /** 毫秒内序列(0~4095) */
-    private long sequence = 0L;
-
-    /** 上次生成ID的时间戳 */
-    private long lastTimestamp = -1L;
-
-    //==============================Constructors=====================================
-    /**
-     * 构造函数
-     * @param workerId 工作ID (0~31)
-     * @param datacenterId 数据中心ID (0~31)
-     */
-    public SnowflakeIdWorker(long workerId, long datacenterId) &#123;
-        if (workerId &gt; maxWorkerId || workerId &lt; 0) &#123;
-            throw new IllegalArgumentException(String.format(&quot;worker Id can&#39;t be greater than %d or less than 0&quot;, maxWorkerId));
-        &#125;
-        if (datacenterId &gt; maxDatacenterId || datacenterId &lt; 0) &#123;
-            throw new IllegalArgumentException(String.format(&quot;datacenter Id can&#39;t be greater than %d or less than 0&quot;, maxDatacenterId));
-        &#125;
-        this.workerId = workerId;
-        this.datacenterId = datacenterId;
-    &#125;
-
-    // ==============================Methods==========================================
-    /**
-     * 获得下一个ID (该方法是线程安全的)
-     * @return SnowflakeId
-     */
-    public synchronized long nextId() &#123;
-        long timestamp = timeGen();
-
-        //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
-        if (timestamp &lt; lastTimestamp) &#123;
-            throw new RuntimeException(
-                    String.format(&quot;Clock moved backwards.  Refusing to generate id for %d milliseconds&quot;, lastTimestamp - timestamp));
-        &#125;
-
-        //如果是同一时间生成的，则进行毫秒内序列
-        if (lastTimestamp == timestamp) &#123;
-            sequence = (sequence + 1) &amp; sequenceMask;
-            //毫秒内序列溢出
-            if (sequence == 0) &#123;
-                //阻塞到下一个毫秒,获得新的时间戳
-                timestamp = tilNextMillis(lastTimestamp);
-            &#125;
-        &#125;
-        //时间戳改变，毫秒内序列重置
-        else &#123;
-            sequence = 0L;
-        &#125;
-
-        //上次生成ID的时间戳
-        lastTimestamp = timestamp;
-
-        //移位并通过或运算拼到一起组成64位的ID
-        return ((timestamp - twepoch) &lt;&lt; timestampLeftShift) //
-                | (datacenterId &lt;&lt; datacenterIdShift) //
-                | (workerId &lt;&lt; workerIdShift) //
-                | sequence;
-    &#125;
-
-    /**
-     * 阻塞到下一个毫秒，直到获得新的时间戳
-     * @param lastTimestamp 上次生成ID的时间戳
-     * @return 当前时间戳
-     */
-    protected long tilNextMillis(long lastTimestamp) &#123;
-        long timestamp = timeGen();
-        while (timestamp &lt;= lastTimestamp) &#123;
-            timestamp = timeGen();
-        &#125;
-        return timestamp;
-    &#125;
-
-    /**
-     * 返回以毫秒为单位的当前时间
-     * @return 当前时间(毫秒)
-     */
-    protected long timeGen() &#123;
-        return System.currentTimeMillis();
-    &#125;
-
-    /** 测试 */
-    public static void main(String[] args) &#123;
-        System.out.println(&quot;开始：&quot;+System.currentTimeMillis());
-        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-        for (int i = 0; i &lt; 50; i++) &#123;
-            long id = idWorker.nextId();
-            System.out.println(id);
-//            System.out.println(Long.toBinaryString(id));
-        &#125;
-        System.out.println(&quot;结束：&quot;+System.currentTimeMillis());
-    &#125;
-&#125;
-</code></pre>
-<p>优缺点</p>
-<p>优点：</p>
-<ul>
-<li><p>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。</p>
-</li>
-<li><p>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。</p>
-</li>
-<li><p>可以根据自身业务特性分配bit位，非常灵活。</p>
-</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li><p>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成。</p>
-</li>
-<li><p>在单机上是递增的，但是由于设计到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况。（此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求都只要求趋势递增）</p>
-</li>
-</ul>
-<p>其他补充</p>
-<ul>
-<li><p>百度开源的分布式唯一ID生成器UidGenerator</p>
-</li>
-<li><p>美团点评分布式ID生成系统Leaf</p>
-</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/12819/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -733,21 +492,21 @@ public class SnowflakeIdWorker &#123;
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/11/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/16107/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/head.jpg">
       <meta itemprop="name" content="Lbin">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="灵魂蜉蝣随风吹">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Debug">
+      <meta itemprop="name" content="Debug-Blog">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/11/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/posts/16107/" class="post-title-link" itemprop="url">Hello World</a>
         </h2>
 
         <div class="post-meta">
@@ -764,10 +523,27 @@ public class SnowflakeIdWorker &#123;
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：1985-10-26 16:15:00" itemprop="dateModified" datetime="1985-10-26T16:15:00+08:00">1985-10-26</time>
+                <time title="修改时间：2023-01-17 11:19:05" itemprop="dateModified" datetime="2023-01-17T11:19:05+08:00">2023-01-17</time>
               </span>
 
-          
+          <!-- 文章末尾分割线 -->
+<div>
+    <hr/>
+</div><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>367</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -779,17 +555,17 @@ public class SnowflakeIdWorker &#123;
 
       
           <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
@@ -855,7 +631,9 @@ public class SnowflakeIdWorker &#123;
         <li class="sidebar-nav-overview">
           站点概览
         </li>
+
       </ul>
+
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
@@ -864,33 +642,57 @@ public class SnowflakeIdWorker &#123;
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lbin"
+      src="/images/head.jpg">
   <p class="site-author-name" itemprop="name">Lbin</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">灵魂蜉蝣随风吹</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
-        <span class="site-state-item-name">标签</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Binsonbin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Binsonbin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1641674229@qq.com" title="E-Mail → mailto:1641674229@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license motion-element" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
-
+<!-- 侧边栏添加网易云音乐 -->
+<div><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=381825&auto=1&height=66">
+    </iframe>
+</div>
       </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
 
     </div>
+   
   </aside>
   <div id="sidebar-dimmer"></div>
 
@@ -912,8 +714,18 @@ public class SnowflakeIdWorker &#123;
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Lbin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">11k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10 分钟</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
         
@@ -939,7 +751,7 @@ public class SnowflakeIdWorker &#123;
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -950,6 +762,10 @@ public class SnowflakeIdWorker &#123;
   
 
 
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 

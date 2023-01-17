@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/posts/16107/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>lbin</title>
+    <url>/posts/12819/</url>
+    <content><![CDATA[<p>雪花算法</p>
+<p>​    在复杂的分布式系统中，需要有一个唯一ID来标识一条数据或消息。</p>
+<p>ID生成规则部分硬性要求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、全局唯一：不能出现重复的ID号，</span><br><span class="line">2、趋势递增：在MySQL的InnoDB引擎中使用的是聚集索引，由于多数RDBMS使用Btree的数据结构来存储索引数据，所以主键上应该尽量选择使用有序的主键来保证写入性能</span><br><span class="line">3、单调递增：保证下一个ID一定大于上一个ID，例如事务版本号、IM增量消息、排序等特殊需求</span><br><span class="line">4、信息安全：需要ID无规则不规则</span><br><span class="line">5、含时间戳：这样就能够在开发中快速了解这个分布式id的生成时间</span><br></pre></td></tr></table></figure>
+
+<p>ID号生成系统的可用性要求：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">高可用：发一个获取分布式ID的请求，服务器就要保证99.999%的情况下给我创建一个唯一分布式ID。</span><br><span class="line">低延迟：发一个获取分布式ID的请求，服务器就要快，极速。</span><br><span class="line">高QPS：假如并发一口气10万个创建分布式ID请求同时杀过来，服务器要顶的住且一下子成功创建10万个分布式ID。</span><br></pre></td></tr></table></figure>
+
+<p>一般通用的是UUID，</p>
+<p>​    UUID(Universally Unique ldentifer)的标准型式包含32个16进制数字，以连了号分为五段，形式为8-4-4-4-12的36个字符， 示例：550e8400-e29b-41d4-a716-446655440000</p>
+<span id="more"></span>
+
+<p>性能非常高：本地生成，没有网络消耗</p>
+<p>如果只是考虑唯一性，那就选用它吧</p>
+<p>但是，入数据库性能差</p>
+<p><strong>为什么无序的UUID会导致入库性能变差呢？</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、无序，无法预测他的生成顺序，不能生成递增有序的数字。首先分布式ID一般都会作为主键， 但是安装MySQL官方推荐主键要尽量越短越好，UUID每一个都很长，所以不是很推荐。</span><br><span class="line"></span><br><span class="line">2、主键，ID作为主键时在特定的环境会存在一些问题。比如做DB主键的场景下，UUID就非常不适用MySQL官方有明确的建议主键要尽量越短越好36个字符长度的UUID不符合要求。</span><br><span class="line"></span><br><span class="line">3、索引，既然分布式ID是主键，然后主键是包含索引的，然后MySQL的索引是通过B+树来实现的，每一次新的UUID数据的插入，为了查询的优化，都会对索引底层的B+树进行修改，因为UUID数据是无序的，所以每一次UUID数据的插入都会对主键地械的B+树进行很大的修改，这一点很不好。 插入完全无序，不但会导致一-些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在<strong>单机</strong>里，数据库的自增ID机制的主要原理是：数据库自增ID和mysql数据库的replace into实现的         （这里replace into和insert功能类似）</p>
+<p>不同点在于：replace into首先尝试插入数据库列表中，如果发现表中已经有此行数据(根据主键或唯一索引判断)则先删除，再插入，否则直接插入新数据</p>
+<p><font color="red">REPLACE INTO的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据</font></p>
+<p><strong>集群分布式</strong></p>
+<p>基于Redis生成全局ID策略</p>
+<p>因为Redis是单线的天生保证原子性，可以使用原子操作INCR和INCRBY来实现</p>
+<p>注意：在Redis集群情况下，同样和MySQL一样需要设置不同的增长步长，同时key一定要设置有效期可以使用Redis集群来获取更高的吞吐量。</p>
+<p>假如一个集群中有5台Redis。可以初始化每台Redis的值分别是1,2,3,4,5，然后步长都是5。</p>
+<p>各个Redis生成的ID为:</p>
+<p>A：1, 6, 11, 16, 21<br>B：2, 7 , 12, 17, 22<br>C：3, 8, 13, 18, 23<br>D：4, 9, 14, 19, 24<br>E：5, 10, 15, 20, 25</p>
+<h1 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a><strong>雪花算法</strong></h1><p>Twitter的分布式自增ID算法snowflake</p>
+<p>概述</p>
+<p>Twitter的snowflake解决了这种需求，最初Twitter把存储系统从MySQL迁移到Cassandra（由Facebook开发一套开源分布式NoSQL数据库系统）。因为Cassandra没有顺序ID生成机制，所以开发了这样一套全局唯一生成服务。</p>
+<p>Twitter的分布式雪花算法SnowFlake ，经测试snowflake 每秒能够产生26万个自增可排序的ID</p>
+<ol>
+<li><p>Twitter的SnowFlake生成ID能够按照时间有序生成。</p>
+</li>
+<li><p>SnowFlake算法生成ID的结果是一个64bit大小的整数， 为一个Long型（转换成字符串后长度最多19）。</p>
+</li>
+<li><p>分布式系统内不会产生ID碰撞（由datacenter和workerld作区分）并且效率较高。</p>
+</li>
+</ol>
+<p>分布式系统中，有一些需要使用全局唯一ID的场景， 生成ID的基本要求：</p>
+<ol>
+<li>在分布式的环境下必须全局且唯一 。</li>
+<li>一般都需要单调递增，因为一般唯一ID都会存到数据库，而Innodb的特性就是将内容存储在主键索引树上的叶子节点而且是从左往右，递增的，所以考虑到数据库性能，一般生成的ID也最好是单调递增。 为了防止ID冲突可以使用36位的UUID，但是UUID有一些缺点， 首先他相对比较长， 另外UUID一般是无序的。</li>
+<li>可能还会需要无规则，因为如果使用唯一ID作为订单号这种，为了不然别人知道一天的订单量是多少，就需要这个规则。</li>
+</ol>
+<p>号段解析：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1bit：</span><br><span class="line"></span><br><span class="line">不用，因为二进制中最高位是符号位，1表示负数，0表示正数。生成的id一般都是用整数，所以最高位固定为0。</span><br><span class="line"></span><br><span class="line">41bit - 时间戳，用来记录时间戳，毫秒级：</span><br><span class="line">41位可以表示2^41 - 1个数字</span><br><span class="line">如果只用来表示正整数（计算机中正数包含0），可以表示的数值范围是：0至2^41 - 1</span><br><span class="line"> ，减1是因为可表示的数值范围是从0开始算的，而不是1。</span><br><span class="line">也就是说41位可以表示2^41 - 1个毫秒的值，转化成单位年则是( 2^41 - 1 ) / (1000 ∗60 ∗ 60 ∗ 24 ∗ 365 ) =69年。</span><br><span class="line"></span><br><span class="line">10bit - 工作机器ID，用来记录工作机器ID：</span><br><span class="line">可以部署在2^10 = 1024个节点，包括5位DataCenterId和5位Workerld。</span><br><span class="line">5位(bit) 可以表示的最大正整数是2^5 − 1 = 31,即可以用0、1、2、3、…31这32个数字，来表示不同的DataCenterld或Workerld。</span><br><span class="line"></span><br><span class="line">12bit - 序列号，用来记录同毫秒内产生的不同id。</span><br><span class="line">12位(bit) 可以表示的最大正整数是2 12 − 1 = 4095 2^&#123;12&#125; - 1 = 40952， 即可以用0、1、2、 3、…4094这4095个数字，来表示同一机器同一时间截(毫秒)内产生的4095个ID序号。</span><br><span class="line">SnowFlake可以保证：</span><br><span class="line"></span><br><span class="line">所有生成的ID按时间趋势递增。</span><br><span class="line">整个分布式系统内不会产生重复id（因为有DataCenterId和Workerld来做区分)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>源码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Twitter_Snowflake</span></span><br><span class="line"><span class="comment"> * SnowFlake的结构如下(每部分用-分开):</span></span><br><span class="line"><span class="comment"> * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000</span></span><br><span class="line"><span class="comment"> * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0</span></span><br><span class="line"><span class="comment"> * 41位时间戳(毫秒级)，注意，41位时间戳不是存储当前时间的时间戳，而是存储时间戳的差值（当前时间戳 - 开始时间戳)</span></span><br><span class="line"><span class="comment"> * 得到的值），这里的的开始时间戳，一般是我们的id生成器开始使用的时间，由我们程序来指定的（如下面程序SnowflakeIdWorker类的startTime属性）。41位的时间戳，可以使用69年，年T = (1L &lt;&lt; 41) / (1000L * 60 * 60 * 24 * 365) = 69</span></span><br><span class="line"><span class="comment"> * 10位的数据机器位，可以部署在1024个节点，包括5位datacenterId和5位workerId</span></span><br><span class="line"><span class="comment"> * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间戳)产生4096个ID序号</span></span><br><span class="line"><span class="comment"> * 加起来刚好64位，为一个Long型。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SnowflakeIdWorker</span> &#123;</span><br><span class="line">    <span class="comment">/** 开始时间戳 (2015-01-01) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">twepoch</span> <span class="operator">=</span> <span class="number">1420041600000L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 机器id所占的位数 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">workerIdBits</span> <span class="operator">=</span> <span class="number">5L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 数据标识id所占的位数 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">datacenterIdBits</span> <span class="operator">=</span> <span class="number">5L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 支持的最大机器id，结果是31 (这个移位算法可以很快的计算出几位二进制数所能表示的最大十进制数) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">maxWorkerId</span> <span class="operator">=</span> -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; workerIdBits);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 支持的最大数据标识id，结果是31 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">maxDatacenterId</span> <span class="operator">=</span> -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; datacenterIdBits);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 序列在id中占的位数 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">sequenceBits</span> <span class="operator">=</span> <span class="number">12L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 机器ID向左移12位 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">workerIdShift</span> <span class="operator">=</span> sequenceBits;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 数据标识id向左移17位(12+5) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">datacenterIdShift</span> <span class="operator">=</span> sequenceBits + workerIdBits;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 时间戳向左移22位(5+5+12) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">timestampLeftShift</span> <span class="operator">=</span> sequenceBits + workerIdBits + datacenterIdBits;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">sequenceMask</span> <span class="operator">=</span> -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; sequenceBits);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 工作机器ID(0~31) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> workerId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 数据中心ID(0~31) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> datacenterId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 毫秒内序列(0~4095) */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">sequence</span> <span class="operator">=</span> <span class="number">0L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 上次生成ID的时间戳 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">lastTimestamp</span> <span class="operator">=</span> -<span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//==============================Constructors=====================================</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> workerId 工作ID (0~31)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> datacenterId 数据中心ID (0~31)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SnowflakeIdWorker</span><span class="params">(<span class="type">long</span> workerId, <span class="type">long</span> datacenterId)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (workerId &gt; maxWorkerId || workerId &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(String.format(<span class="string">&quot;worker Id can&#x27;t be greater than %d or less than 0&quot;</span>, maxWorkerId));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (datacenterId &gt; maxDatacenterId || datacenterId &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(String.format(<span class="string">&quot;datacenter Id can&#x27;t be greater than %d or less than 0&quot;</span>, maxDatacenterId));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.workerId = workerId;</span><br><span class="line">        <span class="built_in">this</span>.datacenterId = datacenterId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ==============================Methods==========================================</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获得下一个ID (该方法是线程安全的)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> SnowflakeId</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">long</span> <span class="title function_">nextId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">timestamp</span> <span class="operator">=</span> timeGen();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常</span></span><br><span class="line">        <span class="keyword">if</span> (timestamp &lt; lastTimestamp) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(</span><br><span class="line">                    String.format(<span class="string">&quot;Clock moved backwards.  Refusing to generate id for %d milliseconds&quot;</span>, lastTimestamp - timestamp));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果是同一时间生成的，则进行毫秒内序列</span></span><br><span class="line">        <span class="keyword">if</span> (lastTimestamp == timestamp) &#123;</span><br><span class="line">            sequence = (sequence + <span class="number">1</span>) &amp; sequenceMask;</span><br><span class="line">            <span class="comment">//毫秒内序列溢出</span></span><br><span class="line">            <span class="keyword">if</span> (sequence == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//阻塞到下一个毫秒,获得新的时间戳</span></span><br><span class="line">                timestamp = tilNextMillis(lastTimestamp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//时间戳改变，毫秒内序列重置</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            sequence = <span class="number">0L</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//上次生成ID的时间戳</span></span><br><span class="line">        lastTimestamp = timestamp;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//移位并通过或运算拼到一起组成64位的ID</span></span><br><span class="line">        <span class="keyword">return</span> ((timestamp - twepoch) &lt;&lt; timestampLeftShift) <span class="comment">//</span></span><br><span class="line">                | (datacenterId &lt;&lt; datacenterIdShift) <span class="comment">//</span></span><br><span class="line">                | (workerId &lt;&lt; workerIdShift) <span class="comment">//</span></span><br><span class="line">                | sequence;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 阻塞到下一个毫秒，直到获得新的时间戳</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> lastTimestamp 上次生成ID的时间戳</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 当前时间戳</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">long</span> <span class="title function_">tilNextMillis</span><span class="params">(<span class="type">long</span> lastTimestamp)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">timestamp</span> <span class="operator">=</span> timeGen();</span><br><span class="line">        <span class="keyword">while</span> (timestamp &lt;= lastTimestamp) &#123;</span><br><span class="line">            timestamp = timeGen();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> timestamp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回以毫秒为单位的当前时间</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 当前时间(毫秒)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">long</span> <span class="title function_">timeGen</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> System.currentTimeMillis();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 测试 */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;开始：&quot;</span>+System.currentTimeMillis());</span><br><span class="line">        <span class="type">SnowflakeIdWorker</span> <span class="variable">idWorker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SnowflakeIdWorker</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">id</span> <span class="operator">=</span> idWorker.nextId();</span><br><span class="line">            System.out.println(id);</span><br><span class="line"><span class="comment">//            System.out.println(Long.toBinaryString(id));</span></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;结束：&quot;</span>+System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>优缺点</p>
+<p>优点：</p>
+<ul>
+<li><p>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。</p>
+</li>
+<li><p>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。</p>
+</li>
+<li><p>可以根据自身业务特性分配bit位，非常灵活。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成。</p>
+</li>
+<li><p>在单机上是递增的，但是由于设计到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况。（此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求都只要求趋势递增）</p>
+</li>
+</ul>
+<p>其他补充</p>
+<ul>
+<li><p>百度开源的分布式唯一ID生成器UidGenerator</p>
+</li>
+<li><p>美团点评分布式ID生成系统Leaf</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Diary</category>
+      </categories>
+      <tags>
+        <tag>雪花算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>spring框架一</title>
+    <url>/posts/60282/</url>
+    <content><![CDATA[<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>spring框架都是依赖于反射</p>
+<blockquote>
+<p>基本原理其实就是通过反射解析类及其类的各种信息，包括构造器、方法及其参数，属性。然后将其封装成bean定义信息类、constructor信息类、method信息类、property信息类，最终放在一个map里，也就是所谓的container，池等等，其实就是个map。。汗。。。。当你写好配置文件，启动项目后，框架会先按照你的配置文件找到那个要scan的包，然后解析包里面的所有类，找到所有含有@bean，@service等注解的类，利用反射解析它们，包括解析构造器，方法，属性等等，然后封装成各种信息类放到一个map里。每当你需要一个bean的时候，框架就会从container找是不是有这个类的定义啊？如果找到则通过构造器new出来（这就是控制反转，不用你new,框架帮你new），再在这个类找是不是有要注入的属性或者方法，比如标有@autowired的属性，如果有则还是到container找对应的解析类，new出对象，并通过之前解析出来的信息类找到setter方法，然后用该方法注入对象（这就是依赖注入）。如果其中有一个类container里没找到，则抛出异常，比如常见的spring无法找到该类定义，无法wire的异常。还有就是嵌套bean则用了一下递归，container会放到servletcontext里面，每次reQuest从servletcontext找这个container即可，不用多次解析类定义。如果bean的scope是singleton，则会重用这个bean不再重新创建，将这个bean放到一个map里，每次用都先从这个map里面找。如果scope是session，则该bean会放到session里面。</p>
+</blockquote>
+<p>spring为开发者提供一个轻量级开发平台，后续诞生的许多实用框架都是以此为生态基础创建的，</p>
+<p>为了降低Java开发的复杂性，</p>
+<p>主要有==IOC==和==AOP==两个核心技术，</p>
+<span id="more"></span>
+
+<h2 id="IOC："><a href="#IOC：" class="headerlink" title="IOC："></a>IOC：</h2><p>ioc是一种设计思想，别的编程语言也有，spring管理bean对象的一个容器，我们通过使用spring，可以将对象的创建和管理完全交给spring，其中spring就是通过ioc使用配置文件来管理和创建对象。</p>
+<blockquote>
+<p>创建对象有四种方式：</p>
+<p>1、使用new关键字调用对象的构造器</p>
+<p>2、使用反射的newInstance()方法</p>
+<p>3、使用Object的clone()方法</p>
+<p>4、使用对象流ObjectInputStream的readObject()方法读取序列化对象</p>
+</blockquote>
+<p>ioc又叫控制反转，可以对spring中的对象进行创建和维护，其在spring中的实现就是==DI==(依赖注入)</p>
+<p>实现原理就是工程模板+反射机制，其中两大核心接口==<strong>BeanFactory</strong>和<strong>ApplicationContext</strong>==</p>
+<p>作用：创建对象，管理对象声明周期，依赖注入，依赖检查，自动装配，回调某些方法</p>
+<blockquote>
+<p>通过BeanDefinitionReader解析各种文件(xml，properties，yaml，json)，拿到配置信息</p>
+<p>下一步通过反射进行实例化，（<del>不用new使用反射是因为，通过反射可以获得对象里面所有属性和成员变量，更加灵活</del>）</p>
+<p>PostProcessor(后置处理器)</p>
+</blockquote>
+<p><img src="/spring.assets/image-20221002155350845.png" alt="image-20221002155350845"></p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean:"></a>Bean:</h2><h3 id="bean是什么："><a href="#bean是什么：" class="headerlink" title="bean是什么："></a>bean是什么：</h3><p>Spring 容器使用依赖注入（DI）来管理==组成一个应用程序的组件==。这些对象被称为 Spring Beans，而这些bean交由IOC容器进行管理和创建</p>
+<h3 id="bean的生命周期"><a href="#bean的生命周期" class="headerlink" title="bean的生命周期"></a>bean的生命周期</h3><ul>
+<li><p>bean定义：</p>
+<ol>
+<li>  通过xml文件定义 </bean> 标签</li>
+<li>  使用注解@bean定义某个类</li>
+<li>  @component注解定义bean，加在类上，通过@componentScan注解来扫描</li>
+<li>  通过beanDefintion编程式定义注：有编程式和声明式，beanDefintion属于编程式，上面的注解和xml都属于声明式声明式底层也是依赖beanDefintion新建一个类继承FactoryBean接口</li>
+</ol>
+</li>
+<li><p>通过以上定义并注册到BeanFactory中</p>
+</li>
+<li><p>进行bean的实例化</p>
+</li>
+<li><p>属性注入(DI)：会产生循环依赖问题，使用三级缓存解决单例的setter注入。</p>
+<ul>
+<li><p>可以只使用二级缓存吗？ 不可以，主要是为了生成代理对象。</p>
+<p>因为三级缓存中放的是生成具体对象的匿名内部类，他可以生成代理对象，也可以是普通的实例对象。</p>
+<p>使用三级缓存主要是为了保证不管什么时候使用的都是一个对象。</p>
+<p>假设只有二级缓存的情况，往二级缓存中放的显示一个普通的Bean对象，<code>BeanPostProcessor</code>去生成代理对象之后，覆盖掉二级缓存中的普通Bean对象，那么多线程环境下可能取到的对象就不一致了。</p>
+</li>
+</ul>
+</li>
+<li><p>初始化</p>
+</li>
+<li><p>销毁</p>
+</li>
+</ul>
+<p>将bean注册</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><img src="/spring.assets/image-20221002160842674.png" alt="image-20221002160842674"></p>
+<p><img src="/spring.assets/image-20221002160009900.png" alt="image-20221002160009900"></p>
+<h2 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h2><p>Spring MVC是一个基于Java的实现了MVC设计模式的请求驱动类型的轻量级Web框架，通过把模型-视图-控制器分离，将web层进行职责解耦，把复杂的web应用分成逻辑清晰的几部分，简化开发，减少出错，方便组内开发人员之间的配合。</p>
+<h3 id="重要组件"><a href="#重要组件" class="headerlink" title="重要组件"></a>重要组件</h3><p>（1）前端控制器 DispatcherServlet（不需要程序员开发）</p>
+<p>作用：接收请求、响应结果，相当于转发器，有了DispatcherServlet 就减少了其它组件之间的耦合度。</p>
+<p>（2）处理器映射器HandlerMapping（不需要程序员开发）</p>
+<p>作用：根据请求的URL来查找Handler</p>
+<p>（3）处理器适配器HandlerAdapter</p>
+<p>注意：在编写Handler的时候要按照HandlerAdapter要求的规则去编写，这样适配器HandlerAdapter才可以正确的去执行Handler。</p>
+<p>（4）处理器Handler（需要程序员开发）</p>
+<p>（5）视图解析器 ViewResolver（不需要程序员开发）</p>
+<p>作用：进行视图的解析，根据视图逻辑名解析成真正的视图（view）</p>
+<p>（6）视图View（需要程序员开发jsp）</p>
+<p>View是一个接口， 它的实现类支持不同的视图类型（jsp，freemarker，pdf等等）</p>
+<h3 id="常用注解："><a href="#常用注解：" class="headerlink" title="常用注解："></a>常用注解：</h3><p>@RequestMapping：用于处理请求 url 映射的注解，可用于类或方法上。用于类上，则表示类中的所有响应请求的方法都是以该地址作为父路径。</p>
+<p>@RequestBody：注解实现接收http请求的json数据，将json转换为java对象。</p>
+<p>@ResponseBody：注解实现将conreoller方法返回对象转化为json对象响应给客户。</p>
+]]></content>
+      <tags>
+        <tag>Spring框架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis-01</title>
+    <url>/posts/36792/</url>
+    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>c语言中的hashmap</p>
+<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
+
+
+<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
+<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
+<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
+<p>redisObject</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+
+<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
+<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
+<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
+<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
+<p>随后直接由指针存储整型值</p>
+<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
+<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
+<p>底层编码是使用 quicklist 结构</p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+</search>
