@@ -3,7 +3,25 @@
   <entry>
     <title>Java并发与线程</title>
     <url>/posts/63871/</url>
-    <content><![CDATA[<h1 id="并发与线程"><a href="#并发与线程" class="headerlink" title="并发与线程"></a>并发与线程</h1><h2 id="1、并行和并发的区别？"><a href="#1、并行和并发的区别？" class="headerlink" title="1、并行和并发的区别？"></a>1、并行和并发的区别？</h2>]]></content>
+    <content><![CDATA[<h1 id="并发与线程"><a href="#并发与线程" class="headerlink" title="并发与线程"></a>并发与线程</h1><h2 id="1、并行和并发的区别？"><a href="#1、并行和并发的区别？" class="headerlink" title="1、并行和并发的区别？"></a>1、并行和并发的区别？</h2><ol>
+<li><p><strong>并发</strong>是指两个或多个事件在同一时间段内发生，<strong>并行</strong>是指两个或多个事件在同一时间点上发生</p>
+</li>
+<li><p><strong>并发</strong>是发生在同一个实体上，所以并发会抢占资源。<strong>并行</strong>不会抢占资源，发生在不同的实体上</p>
+<p>并发是为了充分利用处理器 每一个核。</p>
+</li>
+</ol>
+<h2 id="2、线程核进程的区别？"><a href="#2、线程核进程的区别？" class="headerlink" title="2、线程核进程的区别？"></a>2、线程核进程的区别？</h2><p><strong>进程：</strong>是程序运行和资源分配的基本单位，一个程序至少有一个进程，一个进程至少有一个线程。进程在执行过程中拥有独立的内存单元，而多个<strong>线程</strong>共享资源，减少切换次数，从而效率更高。</p>
+<p><strong>线程：</strong>是进程的实体，是cpu调度和分配的基本单位，比程序更小的能独立运行的基本单位，同一进程中的多个线程之间可以并发执行。</p>
+<span id="more"></span>
+
+<h2 id="3、如何创建线程？"><a href="#3、如何创建线程？" class="headerlink" title="3、如何创建线程？"></a>3、如何创建线程？</h2><ol>
+<li><p>继承<strong>Thread</strong>类创建线程</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">MyThread</span><span class="params">()</span> &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123;</span><br><span class="line">			System.out.println(Thread.currentThread()+<span class="string">&quot;:&quot;</span>+i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		MyThread mThread1=<span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">		MyThread mThread2=<span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">		MyThread myThread3=<span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">		mThread1.start();</span><br><span class="line">		mThread2.start();</span><br><span class="line">		myThread3.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>实现<strong>Runnable()<strong>接口实现多线程，然后重写run()方法（</strong>推荐</strong>）==Runnable避免了单继承的局限性==</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> count=<span class="number">20</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">while</span>(count&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				Thread.sleep(<span class="number">200</span>);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(Thread.currentThread().getName()+<span class="string">&quot;-当前剩余票数:&quot;</span>+count--);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		MyThread Thread1=<span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">		Thread mThread1=<span class="keyword">new</span> <span class="title class_">Thread</span>(Thread1,<span class="string">&quot;线程1&quot;</span>);</span><br><span class="line">		Thread mThread2=<span class="keyword">new</span> <span class="title class_">Thread</span>(Thread1,<span class="string">&quot;线程2&quot;</span>);</span><br><span class="line">		Thread mThread3=<span class="keyword">new</span> <span class="title class_">Thread</span>(Thread1,<span class="string">&quot;线程3&quot;</span>);</span><br><span class="line">		mThread1.start();</span><br><span class="line">		mThread2.start();</span><br><span class="line">		myThread3.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li></li>
+</ol>
+]]></content>
       <tags>
         <tag>高并发与多线程</tag>
       </tags>
@@ -274,7 +292,100 @@
 <li>联盟链：介于公有链和私有链，联盟区块链是指其共识过程受到预选节点控制的区块链；例如，不妨想象一个有15个金融机构组成的共同体，每个机构都运行着一个节点，而且为了使每个区块生效需要获得其中10个机构的确认（2/3确认）。区块链或许允许每个人都可读取，或者只受限于参与者，或走混合型路线。代表链：<em>R3</em>，<em>Hyperledger</em> ，长安链</li>
 </ol>
 </li>
+<li>应用范围<ol>
+<li>基础链</li>
+<li>应用链</li>
+</ol>
+</li>
+<li>原创性<ol>
+<li>原链</li>
+<li>分叉链</li>
+</ol>
+</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">公有链</th>
+<th align="center">联盟链</th>
+<th align="center">私有链</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">参与者</td>
+<td align="center">不限</td>
+<td align="center">联盟成员</td>
+<td align="center">链的所有者</td>
+</tr>
+<tr>
+<td align="center">共识机制</td>
+<td align="center">PoW/PoS</td>
+<td align="center">分布式一致性算法</td>
+<td align="center">solo/pbft等</td>
+</tr>
+<tr>
+<td align="center">验证者</td>
+<td align="center">自愿提供算力或质押加密货币者</td>
+<td align="center">联盟成员协商确定</td>
+<td align="center">链的所有者</td>
+</tr>
+<tr>
+<td align="center">激励机制</td>
+<td align="center">需要</td>
+<td align="center">可选</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">去中心化程度</td>
+<td align="center">较高</td>
+<td align="center">偏低</td>
+<td align="center">极低</td>
+</tr>
+<tr>
+<td align="center">如初特点</td>
+<td align="center">解决<a href="https://zh.wikipedia.org/wiki/%E9%9B%99%E9%87%8D%E6%94%AF%E4%BB%98">双重支付</a></td>
+<td align="center">效率和成本优化</td>
+<td align="center">安全性高、效率高</td>
+</tr>
+<tr>
+<td align="center">吞吐量</td>
+<td align="center">7笔/秒至数千笔/秒（<a href="https://zh.wikipedia.org/wiki/%E6%AF%8F%E7%A7%92%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E9%87%8F">TPS</a>）</td>
+<td align="center">&lt;10万笔/秒（TPS）</td>
+<td align="center">视配置决定</td>
+</tr>
+<tr>
+<td align="center">应用领域</td>
+<td align="center"><a href="https://zh.wikipedia.org/wiki/%E5%8D%80%E5%A1%8A%E9%8F%88%E9%81%8A%E6%88%B2">区块链游戏</a>、<a href="https://zh.wikipedia.org/wiki/%E9%9D%9E%E5%90%8C%E8%B3%AA%E5%8C%96%E4%BB%A3%E5%B9%A3">非同质化代币</a>、<a href="https://zh.wikipedia.org/wiki/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E9%87%91%E8%9E%8D">去中心化金融</a>等</td>
+<td align="center">供应链管理、金融服务、医疗保健等</td>
+<td align="center">大型组织或私人企业之业务等</td>
+</tr>
+<tr>
+<td align="center">代表项目</td>
+<td align="center"><a href="https://zh.wikipedia.org/wiki/%E6%AF%94%E7%89%B9%E5%B8%81">比特币</a>、<a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E5%9D%8A">以太坊</a></td>
+<td align="center">R3、<a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E7%BA%A7%E8%B4%A6%E6%9C%AC">Hyperledger</a></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="5、区块链的数据结构"><a href="#5、区块链的数据结构" class="headerlink" title="5、区块链的数据结构"></a>5、区块链的数据结构</h2><p>区块链是由多个区块组成，下面是一个区块的数据结构</p>
+<p><img src="/assets/blockchain/one.jpg" alt="区块数据结构"></p>
+<ul>
+<li><p>区块高度：可以理解为每个区块的唯一ID，从0开始的 “创世块” （块高度为0），一段时间生成一个块，块高度+1.</p>
+</li>
+<li><p>头哈希：每一个区块都有一个唯一的哈希值，依据上一个区块的头哈希+数据块哈希+随机数生成</p>
+</li>
+<li><p>父哈希：上一个高度区块的哈希值（头哈希）</p>
+</li>
+<li><p>merkle根：区块中每一笔交易对应一个哈希，呈树状结构，生产的最终值（根），代表了改区块中的交易</p>
+</li>
+<li><p>难度：难度不是固定不变的，会随着网络现有算力调节。保持相对公平。</p>
+</li>
+<li><p>Nonce：挖矿所要达到的目标值</p>
+</li>
+<li><p>区块体：一定时间内所生成的交易信息，即账本</p>
+</li>
+</ul>
+<p><img src="/assets/blockchain/two.jpg"></p>
 ]]></content>
       <tags>
         <tag>区块链</tag>
