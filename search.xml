@@ -45,6 +45,35 @@
 ]]></content>
   </entry>
   <entry>
+    <title>redis-01</title>
+    <url>/posts/36792/</url>
+    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>c语言中的hashmap</p>
+<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
+
+
+<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
+<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
+<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
+<p>redisObject</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+
+<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
+<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
+<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
+<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
+<p>随后直接由指针存储整型值</p>
+<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
+<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
+<p>底层编码是使用 quicklist 结构</p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>lbin</title>
     <url>/posts/12819/</url>
     <content><![CDATA[<p>雪花算法</p>
@@ -140,35 +169,6 @@
       </tags>
   </entry>
   <entry>
-    <title>redis-01</title>
-    <url>/posts/36792/</url>
-    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
-
-<p>c语言中的hashmap</p>
-<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
-
-
-<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
-<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
-<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
-<p>redisObject</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
-
-<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
-<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
-<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
-<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
-<p>随后直接由指针存储整型值</p>
-<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
-<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
-<p>底层编码是使用 quicklist 结构</p>
-]]></content>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>spring框架一</title>
     <url>/posts/60282/</url>
     <content><![CDATA[<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>spring框架都是依赖于反射</p>
@@ -246,6 +246,94 @@
 ]]></content>
       <tags>
         <tag>Spring框架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>共识机制</title>
+    <url>/posts/39286/</url>
+    <content><![CDATA[<h1 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h1><p>推荐阅读：<a href="https://ethereum.org/zh/developers/docs/scaling/sidechains/#consensus-algorithms">学习以太坊</a></p>
+<h2 id="1、拜占庭将军问题"><a href="#1、拜占庭将军问题" class="headerlink" title="1、拜占庭将军问题"></a>1、拜占庭将军问题</h2><p>9个将军代表国家参与打仗，现在面对同一场战役，需要9个将军的意见一致达成==共识==（进攻/撤退）。如何达成这种要求。（9个将军互不信任）</p>
+<p>首先，最简单的是进行投票，每个将军将自己的投票结果传递给其他将军处，当所有将军都收到投票结果以后才下达最终命令。比如5进攻4撤退，最终结果是进攻。</p>
+<p>以上有形成一个问题。当将军中出现了叛徒，对不同的将军传达不同的消息==破坏整体决定的一致性==。</p>
+<p>根据相关研究，得出一个【一般性的结论】：<strong>如果叛徒的数量大于或等于三分之一 ，那么拜占庭问题不可解</strong>，这个三分之一也被称为<strong>拜占庭容错</strong>，三模冗余是完全无法容错的（也就是说无解，不可能保持一致性）。</p>
+<span id="more"></span>
+
+
+
+<hr>
+<p>这里我们不考虑传令官路上死亡或者叛变的情况，只对于将军中出现的叛考虑，也就是说如何防止<strong>间谍</strong>对于整体的决策进行干预</p>
+<p>构建以下图形</p>
+<p><img src="/assets/blockchain/BlockChain.png"></p>
+<p>每个将军都保留一个本地记录（账本），用来记录所有将军的决策。</p>
+<p>然后构造以下协议：</p>
+<ul>
+<li>使用将军手写签名保证身份的可靠性（<strong>数字签名</strong>）</li>
+<li>国王出资，以保证胜利为由，奖励每一个记录所有账本的将军。所有将军参与<strong>挖矿</strong>，挖到新区块就能得到奖励</li>
+<li>每一个将军，在账本上得到最新确定的记录包含1-9个将军后，得出自己的最终结论。</li>
+</ul>
+<p>这个案例在现在网络速度的环境下可以实现。</p>
+<p>这里就引出了现在区块链的核心问题：应用场景与代价博弈。你要解决的痛点，到底值不值得这样的花费呢？无论是算力消耗，还是资源消耗，亦或是类似于上述案例中的国王出资（区块链代币价值为负数？），都是一种【代价】。完全的信任是不存在的，只有当造假（走捷径获得利润）的成本远远高于得到的利润，才能取得信任（一致性）。</p>
+<h2 id="共识算法"><a href="#共识算法" class="headerlink" title="共识算法"></a>共识算法</h2><hr>
+<p>为了使区块链网络达成共识的机制。</p>
+<h3 id="工作量证明-pow"><a href="#工作量证明-pow" class="headerlink" title="工作量证明(pow)"></a>工作量证明(pow)</h3><p>假设一个新区块是一个密码锁的保险箱，第一个解出正确的密码才能打开。理论上，实验的密码次数越多，得出正确的密码概率也就越大，这就是工作量证明。<em><strong>BTC 和 ETH</strong></em> 就是使用的工作量证明。</p>
+<p><strong>工作量证明函数</strong></p>
+<p>以比特币为例，工作量证明函数使用的hash算法，更多的算力，就意味着挖到新区块的概率越大。</p>
+<p><strong>区块</strong></p>
+<p>区块利用<strong>merkle</strong>算法，将交易以树的形式进行组合，然后两两进行哈希运算，当为奇数的时候则多算上最后一个交易进行补充，依次进行以叶子节点向根节点的运算，并最终得到根节点的hash值，记录在区块头。</p>
+<p><strong>难度值</strong></p>
+<p>难度系数主要跟构建区块的预期时间和实际所用时间有关，每个节点会通过难度系数计算下一阶段的难度值，如果如果系数大于1(即区块构建速度大于预期)，难度值将提高；如果系数小于1(即区块构建速度小于预期),难度值降低。也就是说，挖矿难度，不会因为参与的算力增加而变得简单，也就是出矿速度变快。</p>
+<p>工作量证明的主要流程就是：首先生成Merkle根哈希     然后组装区块头，接着计算出工作量证明的输出。</p>
+<p>最后，生成的符合难度的区块，将通过P2P传递到全网络节点并接收，添加到原有区块链的尾部。</p>
+<blockquote>
+<p><strong>工作量证明最显著的优点是，它在比特币和其它一些数字货币中已经得到了实践的证明。然而，工作量证明也是有明显缺点的，比如采矿的大量电力消耗和低交易吞吐量。</strong></p>
+</blockquote>
+<h3 id="权益证明（pos）"><a href="#权益证明（pos）" class="headerlink" title="权益证明（pos）"></a>权益证明（pos）</h3><p>以太坊于 2022 年启动了权益证明机制，这是因为和原先的<a href="https://ethereum.org/zh/developers/docs/consensus-mechanisms/pow/">工作量证明</a>架构相比，以太坊更安全、能耗更低并且更利于实现新的扩容解决方案。</p>
+<p>Cardano、Ouroboros、ESO等使用</p>
+<p>以保险箱的例子来说，这次把密码锁变为一个彩票系统。购买的彩票越多，则挖到新区块的概率越大。</p>
+<p>顾名思义，权益证明，是由矿工的投入数字化货币决定，而不是算力。它的核心思想是将参与者持有的货币数目和持有的时间累计作为共识节点的资本。</p>
+<p>具体实施中，权益证明要求所有的参与者抵押一部分他们所拥有的token来验证交易，根据他们所抵押的token占整个网络代币的比例，以及token抵押时长，或者是一些其他的方式以确保他们的利益和整个网络的长期利益是一致的。这样，如果验证者存在欺诈性交易，那么他们所抵押的token也会被削减。</p>
+<p>通过长期绑定验证者的利益和整个网络的利益来阻止不良行为，这也不同于工作量证明通过耗费电力来阻止不良行为。</p>
+<p>权益证明主要包括两部分：</p>
+<ol>
+<li><p>验证：</p>
+<p>在权益证明中，要求参与者把他们的token作为安全保障金。在整个区块链网络中，参与者会把他们的token投给他们认为有效的区块，如果他们跟网络中的大部分参与者达成一致，就可以获得和他们的token成正比的奖励，而试图作弊，例如同时给两个不同的区块投票，则要冒着失去保证金的⻛险。</p>
+<p>可见，在权益证明中，金钱就是力量。</p>
+</li>
+<li><p>委托：</p>
+<p>将自己的token委托给验证者，以换取获得奖励的份额。通常委托人会将token存放在智能合约之中，指定他们想要的委托者。这样当该验证者获得验证奖励的时候，委托人也能获得与其委托的token数量成正比的奖励。</p>
+<p>权益证明的优势在于它更经济，可能相比于工作量证明更能有效防止攻击，但是目前还没有在大项目中成熟应用。</p>
+</li>
+</ol>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>质押使个人更容易参与其中保障网络的安全，促进去中心化。 验证者节点可以在普通笔记本电脑上运行。 质押池让用户可以在没有 32 个以太币的情况下质押。权益质押更加去中心化。 规模经济不像适用于工作量证明挖矿那样适用于权益证明，权益证明的加密经济安全性高于工作量证明，需要发行较少的新以太币就可以激励网络参与者。</td>
+<td>与工作量证明相比，权益证明仍处于起步阶段，并且经过的实践检验较少。实现权益证明比实现工作量证明更加复杂。用户需要运行三种软件才能参与以太坊的权益证明。</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="权威证明"><a href="#权威证明" class="headerlink" title="权威证明"></a>权威证明</h3><p>ETH的Kovan Testnet 和 IBM 的Hyerledger Fabric使用此共识机制</p>
+<p>权威证明（PoA）是一种基于声誉的共识算法，为区块链网络（尤其是私有链）引入了实用且有效的解决方案。该术语由以太坊联合创始人兼前首席技术官 Gavin Wood 于2017年提出。</p>
+<p>权威证明共识算法运用身份的价值，这意味着，（被选为）区块验证者凭借的不是抵押的加密货币而是个人的信誉。因此权威证明区块链由任意选择的具有可信实体的验证节点保护。</p>
+<p>权威证明模型依赖于有限数量的区块验证者，这使其成为高度可扩展的系统。区块和交易都由预先被批准的参与者验证，他们充当系统的管理者。</p>
+<p>建立权威必须满足三个主要条件：</p>
+<p>  1）必须在链上验证身份(并签署法律文件)</p>
+<p>  2）资格很难获得, 目前只能是美国公证人</p>
+<p>  3）建立权威时，其检查和程序上必须具有完全的一致性</p>
+<p>  被选中的验证者身份信息公布在POA NETWORK主页上。</p>
+<p><strong>验证过程</strong></p>
+<p>由若干个验证人(validator)来生成区块记录交易，并获得区块奖励和交易费用。在PoA中，验证者（validator）是整个共识机制的关键。 验证者不需要昂贵的网卡，也不需要足够的资产，但它必须具有已知的，并且获得验证的身份。验证者通过放置这个身份来获得担保网络的权力，从而换取区块奖励。若是验证者在整个过程中有恶意行为，或与其它验证者勾结，那通过链上管理可以移除和替换恶意行为者。现有的法律反欺诈保障会被用于整个网络的参与者免受验证者的恶意行为。</p>
+<pre><code>   POA网络启动时有12个验证者（现在有20多个），这些验证者通过智能合约来管理，智能合约也加入了治理模式，验证者可以投票添加或删除验证者甚至是更新治理合约。每个验证者出块的几率均等，每产生一个块可以过得一个 POA 币（侧链的原生代币）以及所有的手续费。
+</code></pre>
+]]></content>
+      <tags>
+        <tag>区块链</tag>
       </tags>
   </entry>
   <entry>
