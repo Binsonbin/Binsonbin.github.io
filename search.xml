@@ -45,35 +45,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>redis-01</title>
-    <url>/posts/36792/</url>
-    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
-
-<p>c语言中的hashmap</p>
-<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
-
-
-<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
-<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
-<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
-<p>redisObject</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
-
-<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
-<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
-<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
-<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
-<p>随后直接由指针存储整型值</p>
-<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
-<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
-<p>底层编码是使用 quicklist 结构</p>
-]]></content>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>lbin</title>
     <url>/posts/12819/</url>
     <content><![CDATA[<p>雪花算法</p>
@@ -252,9 +223,9 @@
     <title>共识机制</title>
     <url>/posts/39286/</url>
     <content><![CDATA[<h1 id="共识机制"><a href="#共识机制" class="headerlink" title="共识机制"></a>共识机制</h1><p>推荐阅读：<a href="https://ethereum.org/zh/developers/docs/scaling/sidechains/#consensus-algorithms">学习以太坊</a></p>
-<h2 id="1、拜占庭将军问题"><a href="#1、拜占庭将军问题" class="headerlink" title="1、拜占庭将军问题"></a>1、拜占庭将军问题</h2><p>9个将军代表国家参与打仗，现在面对同一场战役，需要9个将军的意见一致达成==共识==（进攻/撤退）。如何达成这种要求。（9个将军互不信任）</p>
+<h2 id="1、拜占庭将军问题"><a href="#1、拜占庭将军问题" class="headerlink" title="1、拜占庭将军问题"></a>1、拜占庭将军问题</h2><p>9个将军代表国家参与打仗，现在面对同一场战役，需要9个将军的意见一致达成<font color=#0099ff>共识</font>（进攻/撤退）。如何达成这种要求。（9个将军互不信任）</p>
 <p>首先，最简单的是进行投票，每个将军将自己的投票结果传递给其他将军处，当所有将军都收到投票结果以后才下达最终命令。比如5进攻4撤退，最终结果是进攻。</p>
-<p>以上有形成一个问题。当将军中出现了叛徒，对不同的将军传达不同的消息==破坏整体决定的一致性==。</p>
+<p>以上有形成一个问题。当将军中出现了叛徒，对不同的将军传达不同的消息<font color=#0099ff>破坏整体决定的一致性</font>。</p>
 <p>根据相关研究，得出一个【一般性的结论】：<strong>如果叛徒的数量大于或等于三分之一 ，那么拜占庭问题不可解</strong>，这个三分之一也被称为<strong>拜占庭容错</strong>，三模冗余是完全无法容错的（也就是说无解，不可能保持一致性）。</p>
 <span id="more"></span>
 
@@ -334,6 +305,35 @@
 ]]></content>
       <tags>
         <tag>区块链</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>redis-01</title>
+    <url>/posts/36792/</url>
+    <content><![CDATA[<h2 id="redisDb"><a href="#redisDb" class="headerlink" title="redisDb"></a>redisDb</h2><p>在server.h文件中，是redis底层的数据库实现</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">	dict *dict;		<span class="comment">/*存放所有键值对*/</span></span><br><span class="line">	dict *expires;	<span class="comment">/*过期时间处理*/</span></span><br><span class="line">	dict *blocking_keys;	<span class="comment">/*阻塞的API*/</span></span><br><span class="line">	dict *ready_keys;</span><br><span class="line">	dict *watched_keys;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> avg_ttl;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> expires_cursor;</span><br><span class="line">	<span class="built_in">list</span> *defrag_later;</span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>c语言中的hashmap</p>
+<h3 id="主要说说dict里面如何存储整数的，"><a href="#主要说说dict里面如何存储整数的，" class="headerlink" title="主要说说dict里面如何存储整数的，"></a>主要说说dict里面如何存储整数的，</h3><span id="more"></span>
+
+
+<p>dict中有两个dictht ht hashtable为了rehash扩容，利用链表解决hash冲突，dictht里面的hash数组，每个元素都存储一个dictEntity,而dictEneity里面的 *val指向一个redisObject</p>
+<p><img src="/assets/redis/image-20220929092502781.png" alt="存储结构"></p>
+<p>redistribution会根据你存储的数据的值不同，进行不同的编码，操作不同，也会改变值的类型。</p>
+<p>redisObject</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> type:<span class="number">4</span>;	<span class="comment">//类型</span></span><br><span class="line">	<span class="type">unsigned</span> encoding:<span class="number">4</span>;	<span class="comment">//编码</span></span><br><span class="line">	<span class="type">unsigned</span> lru:LRU_BITS;	<span class="comment">//持久化</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> refcount;	<span class="comment">//引用计数法，判断是否存货</span></span><br><span class="line">	<span class="type">void</span> *ptr;	<span class="comment">//指向内存中的内存区域</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+
+<h3 id="string编码的设计："><a href="#string编码的设计：" class="headerlink" title="string编码的设计："></a>string编码的设计：</h3><p>redisObject中的指针占8个字节，而整数也是8个字节，于是直接使用指针存储整数，在setCommand方法中有写，</p>
+<p><img src="/assets/redis/image-20220929092936578.png" alt="image-20220929092936578"></p>
+<p>通过len = sdslen(s)获取的字符串长度，如果小于等于20(带符号的整型20位)。则可以转化为整型，</p>
+<p><img src="/assets/redis/image-20220929093231676.png" alt="image-20220929093231676"></p>
+<p>随后直接由指针存储整型值</p>
+<h2 id="alist"><a href="#alist" class="headerlink" title="alist"></a>alist</h2><p>LPUSH指令表示从右往左存放元素，右边第一个先进，RPUSH表示从左往右存放，</p>
+<p>LPOP表示从左往右拿，RPOP：从右往左拿，于是，如果使用LPUSH+LPOP，就是栈的结构，LPUSH+RPOP就是队列的结构。</p>
+<p>底层编码是使用 quicklist 结构</p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
